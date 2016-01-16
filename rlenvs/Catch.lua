@@ -43,7 +43,7 @@ end
 -- Redraws screen based on state
 function Catch:redraw()
   -- Reset screen
-  self.screen = torch.Tensor(1, self.size, self.size):zero()
+  self.screen:zero()
   -- Draw ball
   self.screen[{{1}, {self.ball.y}, {self.ball.x}}] = 1
   -- Draw player

@@ -5,7 +5,7 @@ local Catch, super = classic.class('Catch', Env)
 -- Constructor
 function Catch:_init(opts)
   -- Width and height
-  self.size = 16
+  self.size = 8
   self.screen = torch.Tensor(1, self.size, self.size):zero()
 
   -- Player params/state

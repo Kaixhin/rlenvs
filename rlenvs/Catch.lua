@@ -27,7 +27,7 @@ end
 
 -- 1 state returned, of type 'int', of dimensionality 1 x self.size x self.size, between 0 and 1
 function Catch:getStateSpec()
-  return {'int', {1, self.size. self.size}, {0, 1}}
+  return {'int', {1, self.size, self.size}, {0, 1}}
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 0 and 2

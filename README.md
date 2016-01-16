@@ -13,6 +13,7 @@ Run `th experiment.lua` (or `qlua experiment.lua`) to run a demo of a random age
 ```sh
 # Dependencies
 luarocks install https://raw.githubusercontent.com/deepmind/classic/master/rocks/classic-scm-1.rockspec
+
 # Arcade Learning Environment dependencies
 luarocks install https://raw.githubusercontent.com/Kaixhin/xitari/master/xitari-0-0.rockspec
 luarocks install https://raw.githubusercontent.com/Kaixhin/alewrap/master/alewrap-0-0.rockspec
@@ -47,7 +48,7 @@ Returns a state specification as a list with 3 elements:
 
 If several states are returned, `stateSpec` is itself a list of state specifications.
 
-### getActionSpec()
+### actionSpec = env:getActionSpec()
 
 Returns an action specification, with the same structure as used for state specifications.
 

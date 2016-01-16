@@ -2,9 +2,9 @@
 
 Reinforcement learning environments for Torch7, inspired by RL-Glue [[1]](#references). Supported environments:
 
-- Catch
-- ~~Mountain Car [[2]](#references)~~
-- ~~Arcade Learning Environment [[3]](#references)~~
+- rlenvs.Catch
+- ~~rlenvs.MountainCar [[2]](#references)~~
+- rlenvs.Atari [[3]](#references)
 
 Run `th experiment.lua` (or `qlua experiment.lua`) to run a demo of a random agent playing Catch.
 
@@ -14,7 +14,7 @@ Run `th experiment.lua` (or `qlua experiment.lua`) to run a demo of a random age
 # Dependencies
 luarocks install https://raw.githubusercontent.com/deepmind/classic/master/rocks/classic-scm-1.rockspec
 
-# Arcade Learning Environment dependencies
+# Atari (Arcade Learning Environment) dependencies
 luarocks install https://raw.githubusercontent.com/Kaixhin/xitari/master/xitari-0-0.rockspec
 luarocks install https://raw.githubusercontent.com/Kaixhin/alewrap/master/alewrap-0-0.rockspec
 

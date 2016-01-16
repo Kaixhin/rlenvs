@@ -2,6 +2,7 @@ local classic = require 'classic'
 
 local Catch, super = classic.class('Catch', Env)
 
+-- Constructor
 function Catch:_init(opts)
   -- Width and height
   self.size = 16
@@ -39,6 +40,7 @@ function Catch:getRewardSpec()
   return -1, 1
 end
 
+-- Redraws screen based on state
 function Catch:redraw()
   -- Reset screen
   self.screen = torch.Tensor(1, self.size, self.size):zero()
@@ -48,6 +50,7 @@ function Catch:redraw()
   self.screen[{{1}, {self.size}, {self.player.x, self.player.x + self.player.width - 1}}] = 1
 end
 
+-- Starts new game
 function Catch:start()
   -- Reset player and ball
   self.player.x = math.ceil(self.size / 2)
@@ -65,6 +68,7 @@ function Catch:start()
   return self.screen
 end
 
+-- Steps in a game
 function Catch:step(action)
   -- Reward is 0 by default
   local reward = 0

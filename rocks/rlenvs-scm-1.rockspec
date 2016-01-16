@@ -24,6 +24,7 @@ build = {
   modules = {
     rlenvs = "rlenvs/init.lua",
     ["rlenvs.Env"] = "rlenvs/Env.lua",
-    ["rlenvs.Catch"] = "rlenvs/Catch.lua"
+    ["rlenvs.Catch"] = "rlenvs/Catch.lua",
+    ["rlenvs.Atari"] = "rlenvs/Atari.lua"
   }
 }

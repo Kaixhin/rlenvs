@@ -3,7 +3,7 @@
 Reinforcement learning environments for Torch7, inspired by RL-Glue [[1]](#references). Supported environments:
 
 - rlenvs.Catch
-- ~~rlenvs.MountainCar [[2]](#references)~~
+- rlenvs.MountainCar [[2]](#references)
 - rlenvs.Atari [[3]](#references)
 
 Run `th experiment.lua` (or `qlua experiment.lua`) to run a demo of a random agent playing Catch.
@@ -58,6 +58,6 @@ Returns the minimum and maximum rewards produced by the environment.
 
 ## References
 
-[1] Tanner, B., & White, A. (2009). RL-Glue: Language-independent software for reinforcement-learning experiments. *The Journal of Machine Learning Research, 10*, 2133-2136.
-[2] Singh, S. P., & Sutton, R. S. (1996). Reinforcement learning with replacing eligibility traces. *Machine learning, 22*(1-3), 123-158.
+[1] Tanner, B., & White, A. (2009). RL-Glue: Language-independent software for reinforcement-learning experiments. *The Journal of Machine Learning Research, 10*, 2133-2136.  
+[2] Singh, S. P., & Sutton, R. S. (1996). Reinforcement learning with replacing eligibility traces. *Machine learning, 22*(1-3), 123-158.  
 [3] Bellemare, M. G., Naddaf, Y., Veness, J., & Bowling, M. (2012). The arcade learning environment. *J. Artificial Intelligence Res, 47*, 253-279.

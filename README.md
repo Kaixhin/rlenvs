@@ -22,6 +22,14 @@ luarocks install https://raw.githubusercontent.com/Kaixhin/alewrap/master/alewra
 luarocks install https://raw.githubusercontent.com/Kaixhin/rlenvs/master/rocks/rlenvs-scm-1.rockspec
 ```
 
+To use an environment, `require` it and then create a new instance:
+
+```lua
+local MountainCar = require 'rlenvs.MountainCar'
+local env = MountainCar()
+local observation = env:start()
+```
+
 ## API
 
 **Note that the API is under development and may be subject to change**

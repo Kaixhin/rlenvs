@@ -1,9 +1,9 @@
 local rlenvs = {}
 
 -- Include environments
-torch.include(rlenvs, 'Env.lua')
-torch.include(rlenvs, 'Catch.lua')
-torch.include(rlenvs, 'MountainCar.lua')
-torch.include(rlenvs, 'Atari.lua')
+rlenvs.Env = require 'rlenvs/Env'
+rlenvs.Atari = require 'rlenvs/Atari'
+rlenvs.Catch = require 'rlenvs/Catch'
+rlenvs.MountainCar = require 'rlenvs/MountainCar'
 
 return rlenvs

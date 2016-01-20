@@ -1,5 +1,9 @@
 local classic = require 'classic'
-local framework = require 'alewrap'
+-- Do not install if ALEWrap missing
+local hasALEWrap, framework = pcall(require, 'alewrap')
+if not hasALEWrap then
+  return nil
+end
 
 local Atari, super = classic.class('Atari', Env)
 

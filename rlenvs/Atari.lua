@@ -7,6 +7,7 @@ local Atari, super = classic.class('Atari', Env)
 function Atari:_init(opts)
   -- Create ALEWrap options from opts
   opts = opts or {}
+
   local options = {
     game_path = opts.romPath or 'roms',
     env = opts.game,

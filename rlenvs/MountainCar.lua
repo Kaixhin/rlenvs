@@ -4,7 +4,10 @@ local MountainCar, super = classic.class('MountainCar', Env)
 
 -- Constructor
 function MountainCar:_init(opts)
-  self.position = -5
+  opts = opts or {}
+
+  -- State
+  self.position = -0.5
   self.velocity = 0
 end
 
@@ -29,7 +32,7 @@ end
 -- Resets the car
 function MountainCar:start()
   -- Reset position and velocity
-  self.position = -5
+  self.position = -0.5
   self.velocity = 0
 
   return {self.velocity, self.position}

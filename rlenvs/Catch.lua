@@ -4,14 +4,16 @@ local Catch, super = classic.class('Catch', Env)
 
 -- Constructor
 function Catch:_init(opts)
+  opts = opts or {}
+
   -- Width and height
-  self.size = 8
+  self.size = opts.size or 8
   self.screen = torch.Tensor(1, self.size, self.size):zero()
 
   -- Player params/state
   self.player = {
     x = math.ceil(self.size / 2),
-    width = 2
+    width = opts.playerWidth or math.ceil(self.size / 4)
   }
 
   -- Ball params/state

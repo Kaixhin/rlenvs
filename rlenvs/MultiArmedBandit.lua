@@ -1,10 +1,13 @@
 local classic = require 'classic'
 
-local NArmedBandit, super = classic.class('NArmedBandit', Env)
+local MultiArmedBandit, super = classic.class('MultiArmedBandit', Env)
 
 -- Constructor
-function NArmedBandit:_init(opts)
+function MultiArmedBandit:_init(opts)
   opts = opts or {}
+
+  -- Restless bandits (with a Gaussian random walk)
+  self.restless = opts.restless or false
 
   -- Number of plays allowed
   self.plays = 1
@@ -16,29 +19,34 @@ function NArmedBandit:_init(opts)
 end
 
 -- No state (not a contextual bandit)
-function NArmedBandit:getStateSpec()
+function MultiArmedBandit:getStateSpec()
   return nil
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, of the number of arms
-function NArmedBandit:getActionSpec()
+function MultiArmedBandit:getActionSpec()
   return {'int', 1, {1, self.nArms}}
 end
 
 -- Min and max rewards unknown when sampling from distributions
-function NArmedBandit:getRewardSpec()
+function MultiArmedBandit:getRewardSpec()
   return nil, nil
 end
 
 -- Does nothing (distributions do not reset)
-function NArmedBandit:start()
+function MultiArmedBandit:start()
   return nil
 end
 
 -- Pulls an arm
-function NArmedBandit:step(action)
+function MultiArmedBandit:step(action)
   -- Sample for reward
   local reward = torch.normal(self.armMeans[action], 1)
+
+  -- Change reward distribution if restless
+  if self.restless then
+    self.armMeans:add(torch.Tensor(self.nArms):normal(0, 0.1))
+  end
 
   -- Terminate after self.maxPlays
   self.plays = self.plays + 1
@@ -47,4 +55,4 @@ function NArmedBandit:step(action)
   return reward, nil, terminal
 end
 
-return NArmedBandit
+return MultiArmedBandit

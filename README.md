@@ -6,7 +6,7 @@ Reinforcement learning environments for Torch7, inspired by RL-Glue [[1]](#refer
 - rlenvs.Catch
 - rlenvs.CartPole [[3]](#references)
 - rlenvs.MountainCar [[4]](#references)
-- rlenvs.NArmedBandit [[5]](#references)
+- rlenvs.MultiArmedBandit [[5, 6]](#references)
 
 Run `th experiment.lua` (or `qlua experiment.lua`) to run a demo of a random agent playing Catch.
 
@@ -19,7 +19,7 @@ luarocks install https://raw.githubusercontent.com/deepmind/classic/master/rocks
 luarocks install https://raw.githubusercontent.com/Kaixhin/rlenvs/master/rocks/rlenvs-scm-1.rockspec
 ```
 
-### Atari Dependencies
+#### Atari Dependencies
 ```sh
 luarocks install https://raw.githubusercontent.com/Kaixhin/xitari/master/xitari-0-0.rockspec
 luarocks install https://raw.githubusercontent.com/Kaixhin/alewrap/master/alewrap-0-0.rockspec
@@ -75,4 +75,5 @@ Returns the minimum and maximum rewards produced by the environment.
 [2] Bellemare, M. G., Naddaf, Y., Veness, J., & Bowling, M. (2012). The arcade learning environment. *J. Artificial Intelligence Res, 47*, 253-279.  
 [3] Barto, A. G., Sutton, R. S., & Anderson, C. W. (1983). Neuronlike adaptive elements that can solve difficult learning control problems. *Systems, Man and Cybernetics, IEEE Transactions on*, (5), 834-846.  
 [4] Singh, S. P., & Sutton, R. S. (1996). Reinforcement learning with replacing eligibility traces. *Machine learning, 22*(1-3), 123-158.  
-[5] Sutton, R. S., & Barto, A. G. (1998). *Reinforcement learning: An introduction* (Vol. 1, No. 1). Cambridge: MIT press.  
+[5] Robbins, H. (1985). Some aspects of the sequential design of experiments. In *Herbert Robbins Selected Papers* (pp. 169-177). Springer New York.  
+[6] Whittle, P. (1988). Restless bandits: Activity allocation in a changing world. *Journal of applied probability*, 287-298.  

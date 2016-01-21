@@ -6,6 +6,9 @@ local Catch, super = classic.class('Catch', Env)
 function Catch:_init(opts)
   opts = opts or {}
 
+  -- Difficulty
+  self.difficulty = opts.difficulty or 'hard'
+
   -- Width and height
   self.size = opts.size or 8
   self.screen = torch.Tensor(1, self.size, self.size):zero()
@@ -23,7 +26,7 @@ function Catch:_init(opts)
   }
   -- Trajectory
   self.ball.startX = self.ball.x
-  self.ball.endX = torch.random(self.size)
+  self.ball.endX = self.difficulty == 'easy' and self.ball.startX or torch.random(self.size)
   self.ball.gradX = (self.ball.endX - self.ball.startX) / (self.size - 1)
 end
 
@@ -60,7 +63,7 @@ function Catch:start()
   self.ball.y = 1
   -- Choose new trajectory
   self.ball.startX = self.ball.x
-  self.ball.endX = torch.random(self.size)
+  self.ball.endX = self.difficulty == 'easy' and self.ball.startX or torch.random(self.size)
   self.ball.gradX = (self.ball.endX - self.ball.startX) / (self.size - 1)
 
   -- Redraw screen

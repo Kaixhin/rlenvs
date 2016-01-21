@@ -8,4 +8,11 @@ rlenvs.CartPole = require 'rlenvs/CartPole'
 rlenvs.MountainCar = require 'rlenvs/MountainCar'
 rlenvs.NArmedBandit = require 'rlenvs/NArmedBandit'
 
+-- Remove nil environments
+for k, v in pairs(rlenvs) do
+  if v == true then
+    rlenvs[k] = nil
+  end
+end
+
 return rlenvs

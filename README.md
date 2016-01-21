@@ -2,7 +2,7 @@
 
 Reinforcement learning environments for Torch7, inspired by RL-Glue [[1]](#references). Supported environments:
 
-- rlenvs.Atari (Arcade Learning Environment) [[2]](#references)
+- rlenvs.Atari (Arcade Learning Environment)\* [[2]](#references)
 - rlenvs.Catch
 - rlenvs.CartPole [[3]](#references)
 - rlenvs.MountainCar [[4]](#references)
@@ -10,19 +10,22 @@ Reinforcement learning environments for Torch7, inspired by RL-Glue [[1]](#refer
 
 Run `th experiment.lua` (or `qlua experiment.lua`) to run a demo of a random agent playing Catch.
 
+\* Environments with other dependencies are installed only if those dependencies are available.
+
 ## Installation
 
 ```sh
-# Dependencies
 luarocks install https://raw.githubusercontent.com/deepmind/classic/master/rocks/classic-scm-1.rockspec
-
-# Atari (Arcade Learning Environment) dependencies
-luarocks install https://raw.githubusercontent.com/Kaixhin/xitari/master/xitari-0-0.rockspec
-luarocks install https://raw.githubusercontent.com/Kaixhin/alewrap/master/alewrap-0-0.rockspec
-
-# rlenvs
 luarocks install https://raw.githubusercontent.com/Kaixhin/rlenvs/master/rocks/rlenvs-scm-1.rockspec
 ```
+
+### Atari Dependencies
+```sh
+luarocks install https://raw.githubusercontent.com/Kaixhin/xitari/master/xitari-0-0.rockspec
+luarocks install https://raw.githubusercontent.com/Kaixhin/alewrap/master/alewrap-0-0.rockspec
+```
+
+## Usage
 
 To use an environment, `require` it and then create a new instance:
 

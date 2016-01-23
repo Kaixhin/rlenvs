@@ -5,6 +5,7 @@ rlenvs.Env = require 'rlenvs/Env'
 rlenvs.Atari = require 'rlenvs/Atari'
 rlenvs.Catch = require 'rlenvs/Catch'
 rlenvs.CartPole = require 'rlenvs/CartPole'
+rlenvs.JacksCarRental = require 'rlenvs/JacksCarRental'
 rlenvs.MountainCar = require 'rlenvs/MountainCar'
 rlenvs.MultiArmedBandit = require 'rlenvs/MultiArmedBandit'
 

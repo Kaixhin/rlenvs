@@ -3,6 +3,7 @@ local rlenvs = {}
 -- Include environments
 rlenvs.Env = require 'rlenvs/Env'
 rlenvs.Atari = require 'rlenvs/Atari'
+rlenvs.Blackjack = require 'rlenvs/Blackjack'
 rlenvs.Catch = require 'rlenvs/Catch'
 rlenvs.CartPole = require 'rlenvs/CartPole'
 rlenvs.JacksCarRental = require 'rlenvs/JacksCarRental'

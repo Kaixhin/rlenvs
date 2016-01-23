@@ -3,6 +3,7 @@
 Reinforcement learning environments for Torch7, inspired by RL-Glue [[1]](#references). Supported environments:
 
 - rlenvs.Atari (Arcade Learning Environment)\* [[2]](#references)
+- rlenvs.Blackjack
 - rlenvs.Catch
 - rlenvs.CartPole [[3]](#references)
 - rlenvs.JacksCarRental [[4]](#references)

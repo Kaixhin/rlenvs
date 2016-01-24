@@ -40,7 +40,7 @@ end
 
 -- Min and max reward
 function Catch:getRewardSpec()
-  return -1, 1
+  return 0, 1
 end
 
 -- Redraws screen based on state
@@ -100,8 +100,6 @@ function Catch:step(action)
     -- Player wins if it caught ball
     if self.ball.x >= self.player.x and self.ball.x <= self.player.x + self.player.width - 1 then
       reward = 1
-    else
-      reward = -1
     end
   end
   

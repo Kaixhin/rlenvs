@@ -6,17 +6,17 @@ local Catch, super = classic.class('Catch', Env)
 function Catch:_init(opts)
   opts = opts or {}
 
-  -- Difficulty
-  self.difficulty = opts.difficulty or 'hard'
+  -- Difficulty level
+  self.level = opts.level or 2
 
   -- Width and height
-  self.size = opts.size or 8
+  self.size = opts.size or 24
   self.screen = torch.Tensor(1, self.size, self.size):zero()
 
   -- Player params/state
   self.player = {
     x = math.ceil(self.size / 2),
-    width = opts.playerWidth or math.ceil(self.size / 4)
+    width = opts.playerWidth or math.ceil(self.size / 12)
   }
 
   -- Ball params/state
@@ -25,9 +25,7 @@ function Catch:_init(opts)
     y = 1
   }
   -- Trajectory
-  self.ball.startX = self.ball.x
-  self.ball.endX = self.difficulty == 'easy' and self.ball.startX or torch.random(self.size)
-  self.ball.gradX = (self.ball.endX - self.ball.startX) / (self.size - 1)
+  self.ball.gradX = torch.uniform(-1/3, 1/3)*(1 - self.level)
 end
 
 -- 1 state returned, of type 'int', of dimensionality 1 x self.size x self.size, between 0 and 1
@@ -62,10 +60,8 @@ function Catch:start()
   self.ball.x = torch.random(self.size)
   self.ball.y = 1
   -- Choose new trajectory
-  self.ball.startX = self.ball.x
-  self.ball.endX = self.difficulty == 'easy' and self.ball.startX or torch.random(self.size)
-  self.ball.gradX = (self.ball.endX - self.ball.startX) / (self.size - 1)
-
+  self.ball.gradX = torch.uniform(-1/3, 1/3)*(1 - self.level)
+ 
   -- Redraw screen
   self:redraw()
 
@@ -86,8 +82,16 @@ function Catch:step(action)
   end
 
   -- Move ball
-  self.ball.x = self.ball.x + self.ball.gradX
   self.ball.y = self.ball.y + 1
+  self.ball.x = self.ball.x + self.ball.gradX
+  -- Bounce ball if it hits the side
+  if self.ball.x >= self.size then
+    self.ball.x = self.size
+    self.ball.gradX = -self.ball.gradX
+  elseif self.ball.x < 2 then
+    self.ball.x = 5/3
+    self.ball.gradX = -self.ball.gradX
+  end
 
   -- Check terminal condition
   local terminal = false

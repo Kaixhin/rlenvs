@@ -5,7 +5,7 @@ local Catch = require 'rlenvs/Catch'
 local qt = pcall(require, 'qt')
 
 -- Initialise and start environment
-local env = Catch({size = 16, playerWidth = 3})
+local env = Catch({level = 2})
 local stateSpec = env:getStateSpec()
 local actionSpec = env:getActionSpec()
 local observation = env:start()

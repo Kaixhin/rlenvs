@@ -9,6 +9,7 @@ Reinforcement learning environments for Torch7, inspired by RL-Glue [[1]](#refer
 - rlenvs.JacksCarRental [[4]](#references)
 - rlenvs.MountainCar [[5]](#references)
 - rlenvs.MultiArmedBandit [[6, 7]](#references)
+- rlenvs.RandomWalk [[4]](#references)
 
 Run `th experiment.lua` (or `qlua experiment.lua`) to run a demo of a random agent playing Catch.
 

@@ -9,6 +9,7 @@ rlenvs.CartPole = require 'rlenvs/CartPole'
 rlenvs.JacksCarRental = require 'rlenvs/JacksCarRental'
 rlenvs.MountainCar = require 'rlenvs/MountainCar'
 rlenvs.MultiArmedBandit = require 'rlenvs/MultiArmedBandit'
+rlenvs.RandomWalk = require 'rlenvs/RandomWalk'
 
 -- Remove nil environments
 for k, v in pairs(rlenvs) do

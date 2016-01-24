@@ -6,6 +6,7 @@ Reinforcement learning environments for Torch7, inspired by RL-Glue [[1]](#refer
 - rlenvs.Blackjack
 - rlenvs.Catch
 - rlenvs.CartPole [[3]](#references)
+- rlenvs.CliffWalking [[4]](#references)
 - rlenvs.JacksCarRental [[4]](#references)
 - rlenvs.MountainCar [[5]](#references)
 - rlenvs.MultiArmedBandit [[6, 7]](#references)
@@ -81,4 +82,4 @@ Returns the minimum and maximum rewards produced by the environment.
 [5] Singh, S. P., & Sutton, R. S. (1996). Reinforcement learning with replacing eligibility traces. *Machine learning, 22*(1-3), 123-158.  
 [6] Robbins, H. (1985). Some aspects of the sequential design of experiments. In *Herbert Robbins Selected Papers* (pp. 169-177). Springer New York.  
 [7] Whittle, P. (1988). Restless bandits: Activity allocation in a changing world. *Journal of applied probability*, 287-298.  
-[8] Sutton, R. S. (1988). Learning to predict by the methods of temporal differences. *Machine learning, 3*(1), 9-44.
+[8] Sutton, R. S. (1988). Learning to predict by the methods of temporal differences. *Machine learning, 3*(1), 9-44.  

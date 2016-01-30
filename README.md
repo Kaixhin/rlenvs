@@ -7,10 +7,11 @@ Reinforcement learning environments for Torch7, inspired by RL-Glue [[1]](#refer
 - rlenvs.Catch [[3]](#references)
 - rlenvs.CartPole [[4]](#references)
 - rlenvs.CliffWalking [[5]](#references)
+- rlenvs.DynaMaze [[6]](#references)
 - rlenvs.JacksCarRental [[5]](#references)
-- rlenvs.MountainCar [[6]](#references)
-- rlenvs.MultiArmedBandit [[7, 8]](#references)
-- rlenvs.RandomWalk [[9]](#references)
+- rlenvs.MountainCar [[7]](#references)
+- rlenvs.MultiArmedBandit [[8, 9]](#references)
+- rlenvs.RandomWalk [[10]](#references)
 - rlenvs.WindyWorld [[5]](#references)
 
 Run `th experiment.lua` (or `qlua experiment.lua`) to run a demo of a random agent playing Catch.
@@ -81,7 +82,8 @@ Returns the minimum and maximum rewards produced by the environment.
 [3] Mnih, V., Heess, N., & Graves, A. (2014). Recurrent models of visual attention. In *Advances in Neural Information Processing Systems* (pp. 2204-2212).  
 [4] Barto, A. G., Sutton, R. S., & Anderson, C. W. (1983). Neuronlike adaptive elements that can solve difficult learning control problems. *Systems, Man and Cybernetics, IEEE Transactions on*, (5), 834-846.  
 [5] Sutton, R. S., & Barto, A. G. (1998). *Reinforcement learning: An introduction* (Vol. 1, No. 1). Cambridge: MIT press.  
-[6] Singh, S. P., & Sutton, R. S. (1996). Reinforcement learning with replacing eligibility traces. *Machine learning, 22*(1-3), 123-158.  
-[7] Robbins, H. (1985). Some aspects of the sequential design of experiments. In *Herbert Robbins Selected Papers* (pp. 169-177). Springer New York.  
-[8] Whittle, P. (1988). Restless bandits: Activity allocation in a changing world. *Journal of applied probability*, 287-298.  
-[9] Sutton, R. S. (1988). Learning to predict by the methods of temporal differences. *Machine learning, 3*(1), 9-44.  
+[6] Sutton, R. S. (1990). Integrated architectures for learning, planning, and reacting based on approximating dynamic programming. In *Proceedings of the seventh international conference on machine learning* (pp. 216-224).  
+[7] Singh, S. P., & Sutton, R. S. (1996). Reinforcement learning with replacing eligibility traces. *Machine learning, 22*(1-3), 123-158.  
+[8] Robbins, H. (1985). Some aspects of the sequential design of experiments. In *Herbert Robbins Selected Papers* (pp. 169-177). Springer New York.  
+[9] Whittle, P. (1988). Restless bandits: Activity allocation in a changing world. *Journal of applied probability*, 287-298.  
+[10] Sutton, R. S. (1988). Learning to predict by the methods of temporal differences. *Machine learning, 3*(1), 9-44.  

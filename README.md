@@ -2,17 +2,18 @@
 
 Reinforcement learning environments for Torch7, inspired by RL-Glue [[1]](#references). Supported environments:
 
-- rlenvs.Atari (Arcade Learning Environment)\* [[2]](#references)
+- rlenvs.Acrobot [[2]](#references)
+- rlenvs.Atari (Arcade Learning Environment)\* [[3]](#references)
 - rlenvs.Blackjack
-- rlenvs.Catch [[3]](#references)
-- rlenvs.CartPole [[4]](#references)
-- rlenvs.CliffWalking [[5]](#references)
-- rlenvs.DynaMaze [[6]](#references)
-- rlenvs.JacksCarRental [[5]](#references)
-- rlenvs.MountainCar [[7]](#references)
-- rlenvs.MultiArmedBandit [[8, 9]](#references)
-- rlenvs.RandomWalk [[10]](#references)
-- rlenvs.WindyWorld [[5]](#references)
+- rlenvs.Catch [[4]](#references)
+- rlenvs.CartPole [[5]](#references)
+- rlenvs.CliffWalking [[6]](#references)
+- rlenvs.DynaMaze [[7]](#references)
+- rlenvs.JacksCarRental [[6]](#references)
+- rlenvs.MountainCar [[8]](#references)
+- rlenvs.MultiArmedBandit [[9, 10]](#references)
+- rlenvs.RandomWalk [[11]](#references)
+- rlenvs.WindyWorld [[6]](#references)
 
 Run `th experiment.lua` (or `qlua experiment.lua`) to run a demo of a random agent playing Catch.
 
@@ -78,12 +79,13 @@ Returns the minimum and maximum rewards produced by the environment.
 ## References
 
 [1] Tanner, B., & White, A. (2009). RL-Glue: Language-independent software for reinforcement-learning experiments. *The Journal of Machine Learning Research, 10*, 2133-2136.  
-[2] Bellemare, M. G., Naddaf, Y., Veness, J., & Bowling, M. (2012). The arcade learning environment. *J. Artificial Intelligence Res, 47*, 253-279.  
-[3] Mnih, V., Heess, N., & Graves, A. (2014). Recurrent models of visual attention. In *Advances in Neural Information Processing Systems* (pp. 2204-2212).  
-[4] Barto, A. G., Sutton, R. S., & Anderson, C. W. (1983). Neuronlike adaptive elements that can solve difficult learning control problems. *Systems, Man and Cybernetics, IEEE Transactions on*, (5), 834-846.  
-[5] Sutton, R. S., & Barto, A. G. (1998). *Reinforcement learning: An introduction* (Vol. 1, No. 1). Cambridge: MIT press.  
-[6] Sutton, R. S. (1990). Integrated architectures for learning, planning, and reacting based on approximating dynamic programming. In *Proceedings of the seventh international conference on machine learning* (pp. 216-224).  
-[7] Singh, S. P., & Sutton, R. S. (1996). Reinforcement learning with replacing eligibility traces. *Machine learning, 22*(1-3), 123-158.  
-[8] Robbins, H. (1985). Some aspects of the sequential design of experiments. In *Herbert Robbins Selected Papers* (pp. 169-177). Springer New York.  
-[9] Whittle, P. (1988). Restless bandits: Activity allocation in a changing world. *Journal of applied probability*, 287-298.  
-[10] Sutton, R. S. (1988). Learning to predict by the methods of temporal differences. *Machine learning, 3*(1), 9-44.  
+[2] DeJong, G., & Spong, M. W. (1994, June). Swinging up the acrobot: An example of intelligent control. In *American Control Conference, 1994* (Vol. 2, pp. 2158-2162). IEEE.  
+[3] Bellemare, M. G., Naddaf, Y., Veness, J., & Bowling, M. (2012). The arcade learning environment. *J. Artificial Intelligence Res, 47*, 253-279.  
+[4] Mnih, V., Heess, N., & Graves, A. (2014). Recurrent models of visual attention. In *Advances in Neural Information Processing Systems* (pp. 2204-2212).  
+[5] Barto, A. G., Sutton, R. S., & Anderson, C. W. (1983). Neuronlike adaptive elements that can solve difficult learning control problems. *Systems, Man and Cybernetics, IEEE Transactions on*, (5), 834-846.  
+[6] Sutton, R. S., & Barto, A. G. (1998). *Reinforcement learning: An introduction* (Vol. 1, No. 1). Cambridge: MIT press.  
+[7] Sutton, R. S. (1990). Integrated architectures for learning, planning, and reacting based on approximating dynamic programming. In *Proceedings of the seventh international conference on machine learning* (pp. 216-224).  
+[8] Singh, S. P., & Sutton, R. S. (1996). Reinforcement learning with replacing eligibility traces. *Machine learning, 22*(1-3), 123-158.  
+[9] Robbins, H. (1985). Some aspects of the sequential design of experiments. In *Herbert Robbins Selected Papers* (pp. 169-177). Springer New York.  
+[10] Whittle, P. (1988). Restless bandits: Activity allocation in a changing world. *Journal of applied probability*, 287-298.  
+[11] Sutton, R. S. (1988). Learning to predict by the methods of temporal differences. *Machine learning, 3*(1), 9-44.  

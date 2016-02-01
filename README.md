@@ -9,10 +9,11 @@ Reinforcement learning environments for Torch7, inspired by RL-Glue [[1]](#refer
 - rlenvs.CartPole [[6]](#references)
 - rlenvs.CliffWalking [[7]](#references)
 - rlenvs.DynaMaze [[8]](#references)
+- rlenvs.GridWorld [[9]](#references)
 - rlenvs.JacksCarRental [[7]](#references)
-- rlenvs.MountainCar [[9]](#references)
-- rlenvs.MultiArmedBandit [[10, 11]](#references)
-- rlenvs.RandomWalk [[12]](#references)
+- rlenvs.MountainCar [[10]](#references)
+- rlenvs.MultiArmedBandit [[11, 12]](#references)
+- rlenvs.RandomWalk [[13]](#references)
 - rlenvs.WindyWorld [[7]](#references)
 
 Run `th experiment.lua` (or `qlua experiment.lua`) to run a demo of a random agent playing Catch.
@@ -22,7 +23,7 @@ Run `th experiment.lua` (or `qlua experiment.lua`) to run a demo of a random age
 ## Installation
 
 ```sh
-luarocks install https://raw.githubusercontent.com/deepmind/classic/master/rocks/classic-scm-1.rockspec
+luarocks install classic
 luarocks install https://raw.githubusercontent.com/Kaixhin/rlenvs/master/rocks/rlenvs-scm-1.rockspec
 ```
 
@@ -86,7 +87,8 @@ Returns the minimum and maximum rewards produced by the environment.
 [6] Barto, A. G., Sutton, R. S., & Anderson, C. W. (1983). Neuronlike adaptive elements that can solve difficult learning control problems. *Systems, Man and Cybernetics, IEEE Transactions on*, (5), 834-846.  
 [7] Sutton, R. S., & Barto, A. G. (1998). *Reinforcement learning: An introduction* (Vol. 1, No. 1). Cambridge: MIT press.  
 [8] Sutton, R. S. (1990). Integrated architectures for learning, planning, and reacting based on approximating dynamic programming. In *Proceedings of the seventh international conference on machine learning* (pp. 216-224).  
-[9] Singh, S. P., & Sutton, R. S. (1996). Reinforcement learning with replacing eligibility traces. *Machine learning, 22*(1-3), 123-158.  
-[10] Robbins, H. (1985). Some aspects of the sequential design of experiments. In *Herbert Robbins Selected Papers* (pp. 169-177). Springer New York.  
-[11] Whittle, P. (1988). Restless bandits: Activity allocation in a changing world. *Journal of applied probability*, 287-298.  
-[12] Sutton, R. S. (1988). Learning to predict by the methods of temporal differences. *Machine learning, 3*(1), 9-44.  
+[9] Boyan, J., & Moore, A. W. (1995). Generalization in reinforcement learning: Safely approximating the value function. *Advances in neural information processing systems*, 369-376.  
+[10] Singh, S. P., & Sutton, R. S. (1996). Reinforcement learning with replacing eligibility traces. *Machine learning, 22*(1-3), 123-158.  
+[11] Robbins, H. (1985). Some aspects of the sequential design of experiments. In *Herbert Robbins Selected Papers* (pp. 169-177). Springer New York.  
+[12] Whittle, P. (1988). Restless bandits: Activity allocation in a changing world. *Journal of applied probability*, 287-298.  
+[13] Sutton, R. S. (1988). Learning to predict by the methods of temporal differences. *Machine learning, 3*(1), 9-44.  

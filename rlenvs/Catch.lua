@@ -8,6 +8,8 @@ function Catch:_init(opts)
 
   -- Difficulty level
   self.level = opts.level or 2
+  -- Obscured
+  self.obscured = opts.obscured or false
 
   -- Width and height
   self.size = opts.size or 24
@@ -51,6 +53,12 @@ function Catch:redraw()
   self.screen[{{1}, {self.ball.y}, {self.ball.x}}] = 1
   -- Draw player
   self.screen[{{1}, {self.size}, {self.player.x, self.player.x + self.player.width - 1}}] = 1
+
+  -- Obscure screen?
+  if self.obscured then
+    local barrier = math.ceil(self.size / 4)
+    self.screen[{{1}, {self.size-barrier, self.size-1}, {}}] = 0
+  end
 end
 
 -- Starts new game

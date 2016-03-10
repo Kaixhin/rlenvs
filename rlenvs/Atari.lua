@@ -31,6 +31,11 @@ function Atari:_init(opts)
   -- Set evaluation mode by default
   self.trainingFlag = false
 
+  -- Full actions mode
+  if opts.fullActions then
+    self.actions = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17}
+  end
+
   -- Screen, reward, terminal flag
   self.screen = nil
   self.reward = nil

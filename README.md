@@ -14,6 +14,7 @@ Reinforcement learning environments for Torch7, inspired by RL-Glue [[1]](#refer
 - rlenvs.MountainCar [[10]](#references)
 - rlenvs.MultiArmedBandit [[11, 12]](#references)
 - rlenvs.RandomWalk [[13]](#references)
+- rlenvs.Taxi [[14]](#references)
 - rlenvs.WindyWorld [[7]](#references)
 
 Run `th experiment.lua` (or `qlua experiment.lua`) to run a demo of a random agent playing Catch.
@@ -93,3 +94,4 @@ Environments must inherit from `Env` and therefore implement the above methods (
 [11] Robbins, H. (1985). Some aspects of the sequential design of experiments. In *Herbert Robbins Selected Papers* (pp. 169-177). Springer New York.  
 [12] Whittle, P. (1988). Restless bandits: Activity allocation in a changing world. *Journal of applied probability*, 287-298.  
 [13] Sutton, R. S. (1988). Learning to predict by the methods of temporal differences. *Machine learning, 3*(1), 9-44.  
+[14] Dietterich, T. G. (2000). Hierarchical Reinforcement Learning with the MAXQ Value Function Decomposition. In *Journal of Artificial Intelligence Research*.  

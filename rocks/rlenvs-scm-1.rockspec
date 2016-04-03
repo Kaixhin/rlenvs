@@ -38,6 +38,7 @@ build = {
     ["rlenvs.MountainCar"] = "rlenvs/MountainCar.lua",
     ["rlenvs.MultiArmedBandit"] = "rlenvs/MultiArmedBandit.lua",
     ["rlenvs.RandomWalk"] = "rlenvs/RandomWalk.lua",
+    ["rlenvs.Taxi"] = "rlenvs/Taxi.lua",
     ["rlenvs.WindyWorld"] = "rlenvs/WindyWorld.lua"
   }
 }

@@ -14,6 +14,7 @@ rlenvs.JacksCarRental = require 'rlenvs/JacksCarRental'
 rlenvs.MountainCar = require 'rlenvs/MountainCar'
 rlenvs.MultiArmedBandit = require 'rlenvs/MultiArmedBandit'
 rlenvs.RandomWalk = require 'rlenvs/RandomWalk'
+rlenvs.Taxi = require 'rlenvs/Taxi'
 rlenvs.WindyWorld = require 'rlenvs/WindyWorld'
 
 -- Remove nil environments

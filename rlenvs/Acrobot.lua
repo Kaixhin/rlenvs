@@ -18,12 +18,6 @@ function Acrobot:_init(opts)
   self.I2 = opts.I2 or 1 -- Moment of inertia of link 2
   self.tau = opts.tau or 0.05 -- Time step (s)
   self.steps = opts.steps or 4 -- Time steps to take
-
-  -- State
-  self.q1 = 0 -- Joint 1 angle
-  self.q2 = 0 -- Joint 2 angle
-  self.q1Dot = 0 -- Joint 1 angular velocity
-  self.q2Dot = 0 -- Joint 2 angular velocity
 end
 
 -- 4 states returned, of type 'real', of dimensionality 1, with differing ranges
@@ -49,10 +43,10 @@ end
 -- Resets the cart
 function Acrobot:start()
   -- Reset angles and velocities
-  self.q1 = 0
-  self.q2 = 0
-  self.q1Dot = 0
-  self.q2Dot = 0
+  self.q1 = 0 -- Joint 1 angle
+  self.q2 = 0 -- Joint 2 angle
+  self.q1Dot = 0 -- Joint 1 angular velocity
+  self.q2Dot = 0 -- Joint 2 angular velocity
 
   return {self.q1, self.q2, self.q1Dot, self.q2Dot}
 end

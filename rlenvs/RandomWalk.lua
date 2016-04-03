@@ -5,9 +5,6 @@ local RandomWalk, super = classic.class('RandomWalk', Env)
 -- Constructor
 function RandomWalk:_init(opts)
   opts = opts or {}
-
-  -- State
-  self.position = 3
 end
 
 -- 1 states returned, of type 'int', of dimensionality 1, between 0 and 6 (the terminal states)

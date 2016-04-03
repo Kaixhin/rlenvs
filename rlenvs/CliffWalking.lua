@@ -5,9 +5,6 @@ local CliffWalking, super = classic.class('CliffWalking', Env)
 -- Constructor
 function CliffWalking:_init(opts)
   opts = opts or {}
-
-  -- State
-  self.position = {1, 1}
 end
 
 -- 2 states returned, of type 'int', of dimensionality 1, where x is 1-12 and y is 1-4

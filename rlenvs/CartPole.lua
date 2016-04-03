@@ -16,12 +16,6 @@ function CartPole:_init(opts)
   -- Derived constants
   self.totalMass = self.cartMass + self.poleMass
   self.poleMassLength = self.poleMass * self.poleLength
-
-  -- State
-  self.x = 0 -- Cart position (m)
-  self.xDot = 0 -- Cart velocity
-  self.theta = 0 -- Pole angle (rad)
-  self.thetaDot = 0 -- Pole angular velocity
 end
 
 -- 4 states returned, of type 'real', of dimensionality 1, with differing ranges
@@ -47,10 +41,10 @@ end
 -- Resets the cart
 function CartPole:start()
   -- Reset position, angle and velocities
-  self.x = 0
-  self.xDot = 0
-  self.theta = 0
-  self.thetaDot = 0
+  self.x = 0 -- Cart position (m)
+  self.xDot = 0 -- Cart velocity
+  self.theta = 0 -- Pole angle (rad)
+  self.thetaDot = 0 -- Pole angular velocity
 
   return {self.x, self.xDot, self.theta, self.thetaDot}
 end

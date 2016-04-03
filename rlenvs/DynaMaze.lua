@@ -24,13 +24,6 @@ function DynaMaze:_init(opts)
 
   -- Keep internal step counter
   self.counter = 0
-
-  -- State
-  if self.change == 'none' then
-    self.position = {1, 4}
-  else
-    self.position = {4, 1}
-  end
 end
 
 -- 2 states returned, of type 'int', of dimensionality 1, where x is 1-9 and y is 1-6

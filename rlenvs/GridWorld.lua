@@ -16,9 +16,6 @@ function GridWorld:_init(opts)
     self.world[{{30, 90}, {30, 50}}]:csub(image.gaussian({width=21, height=61}))
     self.world[{{60, 80}, {1, 50}}]:csub(image.gaussian({width=60, height=21})[{{}, {11, 60}}])
   end
-
-  -- State
-  self.position = {0.2, 0.4}
 end
 
 -- 2 states returned, of type 'real', of dimensionality 1, from 0-1

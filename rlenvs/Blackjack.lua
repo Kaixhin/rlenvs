@@ -7,22 +7,8 @@ local Blackjack, super = classic.class('Blackjack', Env)
 function Blackjack:_init(opts)
   opts = opts or {}
 
-  -- Shuffle deck
+  -- Create number-only suit
   self.suit = torch.Tensor({2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11})
-  self.deck = torch.cat({self.suit, self.suit, self.suit, self.suit}, 1):index(1, torch.randperm(52):long())
-  self.draw = 1 -- Index to draw card from
-
-  -- Player state
-  self.playerSum = self.deck[1] + self.deck[3]
-  self.usableAce = (self.deck[1] == 11 or self.deck[3] == 11) and 1 or 0 -- Find usable ace
-  if self.playerSum > 21 then
-    self.playerSum = self.playerSum - 10 -- Use ace (22 means 2 aces drawn)
-    self.usableAce = 1 -- Still one ace remaining
-  end
-
-  -- Dealer state
-  self.dealerCard = self.deck[2]
-  self.draw = 5 -- Reserve 4th card for dealer
 end
 
 -- 2 states returned, of type 'int', of dimensionality 1, for the player sum, dealer's showing card, and player-usable ace
@@ -59,7 +45,7 @@ function Blackjack:start()
 
   -- Dealer state
   self.dealerCard = self.deck[2]
-  self.draw = 5 -- Reserve 4th card for dealer
+  self.draw = 5  -- Index to draw card from (reserves 4th card for dealer)
 
   return {self.playerSum, self.dealerCard, self.usableAce}
 end

@@ -17,17 +17,8 @@ function Catch:_init(opts)
 
   -- Player params/state
   self.player = {
-    x = math.ceil(self.size / 2),
     width = opts.playerWidth or math.ceil(self.size / 12)
   }
-
-  -- Ball params/state
-  self.ball = {
-    x = torch.random(self.size),
-    y = 1
-  }
-  -- Trajectory
-  self.ball.gradX = torch.uniform(-1/3, 1/3)*(1 - self.level)
 end
 
 -- 1 state returned, of type 'int', of dimensionality 1 x self.size x self.size, between 0 and 1

@@ -35,11 +35,6 @@ function Atari:_init(opts)
   if opts.fullActions then
     self.actions = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17}
   end
-
-  -- Screen, reward, terminal flag
-  self.screen = nil
-  self.reward = nil
-  self.terminal = nil
 end
 
 -- 1 state returned, of type 'real', of dimensionality 3 x 210 x 160, between 0 and 1
@@ -72,9 +67,9 @@ function Atari:step(action)
   action = self.actions[action]
 
   -- Step in the game
-  self.screen, self.reward, self.terminal = self.gameEnv:step(action, self.trainingFlag)
+  local screen, reward, terminal = self.gameEnv:step(action, self.trainingFlag)
 
-  return self.reward, self.screen, self.terminal
+  return reward, screen, terminal
 end
 
 -- Set training mode (losing a life triggers terminal signal)

@@ -8,9 +8,6 @@ function WindyWorld:_init(opts)
 
   -- Allow king's moves (8 directions)
   self.king = opts.king or false
-
-  -- State
-  self.position = {1, 4}
 end
 
 -- 2 states returned, of type 'int', of dimensionality 1, where x is 1-10 and y is 1-7

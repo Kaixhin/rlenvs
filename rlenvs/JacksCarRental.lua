@@ -19,10 +19,6 @@ end
 -- Constructor
 function JacksCarRental:_init(opts)
   opts = opts or {}
-
-  -- State
-  self.lot1 = 10
-  self.lot2 = 10
 end
 
 -- 2 states returned, of type 'int', of dimensionality 1, for 0-20 cars

@@ -5,10 +5,6 @@ local MountainCar, super = classic.class('MountainCar', Env)
 -- Constructor
 function MountainCar:_init(opts)
   opts = opts or {}
-
-  -- State
-  self.position = -0.5
-  self.velocity = 0
 end
 
 -- 2 states returned, of type 'real', of dimensionality 1, with differing ranges

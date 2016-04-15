@@ -22,7 +22,7 @@ end
 
 -- Min and max reward
 function MountainCar:getRewardSpec()
-  return -2, 0 -- As height = sin(3x) is between -1 and 1, and reward = height - 1
+  return -2, 0 -- As height = cos(3x) is between -1 and 1, and reward = height - 1
 end
 
 -- Resets the car
@@ -37,7 +37,7 @@ end
 -- Drives the car
 function MountainCar:step(action)
   -- Calculate height
-  local height = math.sin(3*self.position)
+  local height = math.cos(3*self.position)
 
   -- Update velocity and position
   self.velocity = self.velocity + 0.001*action - 0.0025*height

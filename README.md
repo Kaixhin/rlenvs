@@ -11,10 +11,11 @@ Reinforcement learning environments for Torch7, inspired by RL-Glue [[1]](#refer
 - rlenvs.DynaMaze [[8]](#references)
 - rlenvs.GridWorld [[9]](#references)
 - rlenvs.JacksCarRental [[7]](#references)
-- rlenvs.MountainCar [[10]](#references)
-- rlenvs.MultiArmedBandit [[11, 12]](#references)
-- rlenvs.RandomWalk [[13]](#references)
-- rlenvs.Taxi [[14]](#references)
+- rlenvs.MazeBase [[10]](#references)
+- rlenvs.MountainCar [[11]](#references)
+- rlenvs.MultiArmedBandit [[12, 13]](#references)
+- rlenvs.RandomWalk [[14]](#references)
+- rlenvs.Taxi [[15]](#references)
 - rlenvs.WindyWorld [[7]](#references)
 
 Run `th experiment.lua` (or `qlua experiment.lua`) to run a demo of a random agent playing Catch.
@@ -90,8 +91,9 @@ Environments must inherit from `Env` and therefore implement the above methods (
 [7] Sutton, R. S., & Barto, A. G. (1998). *Reinforcement learning: An introduction* (Vol. 1, No. 1). Cambridge: MIT press.  
 [8] Sutton, R. S. (1990). Integrated architectures for learning, planning, and reacting based on approximating dynamic programming. In *Proceedings of the seventh international conference on machine learning* (pp. 216-224).  
 [9] Boyan, J., & Moore, A. W. (1995). Generalization in reinforcement learning: Safely approximating the value function. *Advances in neural information processing systems*, 369-376.  
-[10] Singh, S. P., & Sutton, R. S. (1996). Reinforcement learning with replacing eligibility traces. *Machine learning, 22*(1-3), 123-158.  
-[11] Robbins, H. (1985). Some aspects of the sequential design of experiments. In *Herbert Robbins Selected Papers* (pp. 169-177). Springer New York.  
-[12] Whittle, P. (1988). Restless bandits: Activity allocation in a changing world. *Journal of applied probability*, 287-298.  
-[13] Sutton, R. S. (1988). Learning to predict by the methods of temporal differences. *Machine learning, 3*(1), 9-44.  
-[14] Dietterich, T. G. (2000). Hierarchical Reinforcement Learning with the MAXQ Value Function Decomposition. In *Journal of Artificial Intelligence Research*.  
+[10] Sukhbaatar, S., Szlam, A., Synnaeve, G., Chintala, S., & Fergus, R. (2015). MazeBase: A Sandbox for Learning from Games. *arXiv preprint arXiv:1511.07401*.  
+[11] Singh, S. P., & Sutton, R. S. (1996). Reinforcement learning with replacing eligibility traces. *Machine learning, 22*(1-3), 123-158.  
+[12] Robbins, H. (1985). Some aspects of the sequential design of experiments. In *Herbert Robbins Selected Papers* (pp. 169-177). Springer New York.  
+[13] Whittle, P. (1988). Restless bandits: Activity allocation in a changing world. *Journal of applied probability*, 287-298.  
+[14] Sutton, R. S. (1988). Learning to predict by the methods of temporal differences. *Machine learning, 3*(1), 9-44.  
+[15] Dietterich, T. G. (2000). Hierarchical Reinforcement Learning with the MAXQ Value Function Decomposition. In *Journal of Artificial Intelligence Research*.  

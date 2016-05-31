@@ -89,7 +89,7 @@ function Catch:step(action)
   if self.ball.x >= self.size then
     self.ball.x = self.size
     self.ball.gradX = -self.ball.gradX
-  elseif self.ball.x < 2 then
+  elseif self.ball.x < 2 and self.ball.gradX < 0 then
     self.ball.x = 5/3
     self.ball.gradX = -self.ball.gradX
   end

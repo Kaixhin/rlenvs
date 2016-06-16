@@ -55,10 +55,12 @@ end
 -- Starts a new game, possibly with a random number of no-ops
 function Atari:start()
   if self.gameEnv._random_starts > 0 then
-    return self.gameEnv:nextRandomGame()
+    local screen, reward, terminal = self.gameEnv:nextRandomGame()
   else
-    return self.gameEnv:newGame()
+    local screen, reward, terminal = self.gameEnv:newGame()
   end
+
+  return screen:select(1, 1)
 end
 
 -- Steps in a game
@@ -69,7 +71,7 @@ function Atari:step(action)
   -- Step in the game
   local screen, reward, terminal = self.gameEnv:step(action, self.trainingFlag)
 
-  return reward, screen, terminal
+  return reward, screen:select(1, 1), terminal
 end
 
 -- Set training mode (losing a life triggers terminal signal)

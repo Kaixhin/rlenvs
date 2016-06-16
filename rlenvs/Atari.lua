@@ -54,10 +54,12 @@ end
 
 -- Starts a new game, possibly with a random number of no-ops
 function Atari:start()
+  local screen, reward, terminal
+  
   if self.gameEnv._random_starts > 0 then
-    local screen, reward, terminal = self.gameEnv:nextRandomGame()
+    screen, reward, terminal = self.gameEnv:nextRandomGame()
   else
-    local screen, reward, terminal = self.gameEnv:newGame()
+    screen, reward, terminal = self.gameEnv:newGame()
   end
 
   return screen:select(1, 1)

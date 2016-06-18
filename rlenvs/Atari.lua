@@ -47,6 +47,11 @@ function Atari:getActionSpec()
   return {'int', 1, {1, #self.actions}}
 end
 
+-- RGB screen of height 210 and width 160
+function Atari:getDisplaySpec()
+  return {'real', {3, 210, 160}, {0, 1}}
+end
+
 -- Min and max reward (unknown)
 function Atari:getRewardSpec()
   return nil, nil
@@ -74,6 +79,11 @@ function Atari:step(action)
   local screen, reward, terminal = self.gameEnv:step(action, self.trainingFlag)
 
   return reward, screen:select(1, 1), terminal
+end
+
+-- Returns display of screen
+function Atari:getDisplay()
+  return self.gameEnv._state.observation:select(1, 1)
 end
 
 -- Set training mode (losing a life triggers terminal signal)

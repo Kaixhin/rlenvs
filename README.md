@@ -75,6 +75,18 @@ Returns an action specification, with the same structure as used for state speci
 
 Returns the minimum and maximum rewards produced by the environment. Values may be `nil` if unknown.
 
+---
+
+The following are optional parts of the API.
+
+### displaySpec = env:getDisplaySpec()
+
+Returns an RGB display specification, with the same structure as used for state specifications. Hence of the form `{<int/real>, {3, <height>, <width>}, {<range>}}`.
+
+### display = env:getDisplay()
+
+Returns a RGB display tensor for visualising the state of the environment. Note that this may not be the same as the state provided for the agent.
+
 ## Development
 
 Environments must inherit from `Env` and therefore implement the above methods (as well as a constructor). `experiment.lua` can be easily adapted for testing different environments. New environments should be added to `rlenvs/init.lua`, `rocks/rlenvs-scm-1.rockspec`, and be listed in this readme with an appropriate reference. For an example of a more complex environment that will only be installed if its optional dependencies are satisfied, see `rlenvs/Atari.lua`.

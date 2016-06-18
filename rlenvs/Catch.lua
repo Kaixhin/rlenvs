@@ -33,6 +33,11 @@ function Catch:getActionSpec()
   return {'int', 1, {0, 2}}
 end
 
+-- RGB screen of size self.size x self.size
+function Catch:getDisplaySpec()
+  return {'real', {3, self.size, self.size}, {0, 1}}
+end
+
 -- Min and max reward
 function Catch:getRewardSpec()
   return 0, 1
@@ -108,6 +113,11 @@ function Catch:step(action)
   self:redraw()
 
   return reward, self.screen, terminal
+end
+
+-- Returns (RGB) display of screen
+function Catch:getDisplay()
+  return torch.repeatTensor(self.screen, 3, 1, 1)
 end
 
 return Catch

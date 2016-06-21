@@ -11,6 +11,9 @@ local Atari, super = classic.class('Atari', Env)
 function Atari:_init(opts)
   -- Create ALEWrap options from opts
   opts = opts or {}
+  if opts.lifeLossTerminal == nil then
+    opts.lifeLossTerminal = true
+  end
 
   local options = {
     game_path = opts.romPath or 'roms',
@@ -35,6 +38,9 @@ function Atari:_init(opts)
   if opts.fullActions then
     self.actions = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17}
   end
+  
+  -- Life loss = terminal mode
+  self.lifeLossTerminal = opts.lifeLossTerminal
 end
 
 -- 1 state returned, of type 'real', of dimensionality 3 x 210 x 160, between 0 and 1
@@ -88,7 +94,9 @@ end
 
 -- Set training mode (losing a life triggers terminal signal)
 function Atari:training()
-  self.trainingFlag = true
+  if self.lifeLossTerminal then
+    self.trainingFlag = true
+  end
 end
 
 -- Set evaluation mode (losing lives does not necessarily end an episode)

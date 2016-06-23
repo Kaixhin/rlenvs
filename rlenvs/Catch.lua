@@ -10,6 +10,7 @@ function Catch:_init(opts)
   self.level = opts.level or 2
   -- Probability of screen flickering
   self.flickering = opts.flickering or 0
+  self.flickered = false
   -- Obscured
   self.obscured = opts.obscured or false
 
@@ -119,6 +120,9 @@ function Catch:step(action)
   local screen = self.screen
   if math.random() < self.flickering then
     screen = self.blank
+    self.flickered = true
+  else
+    self.flickered = false
   end
 
   return reward, screen, terminal
@@ -126,7 +130,11 @@ end
 
 -- Returns (RGB) display of screen
 function Catch:getDisplay()
-  return torch.repeatTensor(self.screen, 3, 1, 1)
+  if self.flickered then
+    return torch.repeatTensor(self.blank, 3, 1, 1)
+  else
+    return torch.repeatTensor(self.screen, 3, 1, 1)
+  end
 end
 
 return Catch

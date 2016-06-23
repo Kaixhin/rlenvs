@@ -8,12 +8,15 @@ function Catch:_init(opts)
 
   -- Difficulty level
   self.level = opts.level or 2
+  -- Probability of screen flickering
+  self.flickering = opts.flickering or 0
   -- Obscured
   self.obscured = opts.obscured or false
 
   -- Width and height
   self.size = opts.size or 24
   self.screen = torch.Tensor(1, self.size, self.size):zero()
+  self.blank = torch.Tensor(1, self.size, self.size):zero()
 
   -- Player params/state
   self.player = {
@@ -111,8 +114,14 @@ function Catch:step(action)
   
   -- Redraw screen
   self:redraw()
+  
+  -- Flickering
+  local screen = self.screen
+  if math.random() < self.flickering then
+    screen = self.blank
+  end
 
-  return reward, self.screen, terminal
+  return reward, screen, terminal
 end
 
 -- Returns (RGB) display of screen

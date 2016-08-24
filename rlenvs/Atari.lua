@@ -18,7 +18,7 @@ function Atari:_init(opts)
   local options = {
     game_path = opts.romPath or 'roms',
     env = opts.game,
-    actrep = opts.actRep or 1,
+    actrep = opts.actRep or 4,
     random_starts = opts.randomStarts or 1,
     gpu = opts.gpu and opts.gpu - 1 or -1, -- GPU flag (GPU enables faster screen buffer with CudaTensors)
     pool_frms = { -- Defaults to 2-frame mean-pooling

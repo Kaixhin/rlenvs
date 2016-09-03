@@ -79,6 +79,14 @@ Returns the minimum and maximum rewards produced by the environment. Values may 
 
 The following are optional parts of the API.
 
+### env:training()
+
+Changes settings for a "training mode", analogous to neural network modules.
+
+### env:evaluate()
+
+Changes settings for an "evaluation mode", analogous to neural network modules.
+
 ### displaySpec = env:getDisplaySpec()
 
 Returns an RGB display specification, with the same structure as used for state specifications. Hence of the form `{<int/real>, {3, <height>, <width>}, {<range>}}`.

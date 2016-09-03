@@ -51,9 +51,9 @@ local observation = env:start()
 
 Starts a new episode in the environment and returns the first `observation`. May take `opts`.
 
-### reward, observation, terminal = env:step(action)
+### reward, observation, terminal, [actionTaken] = env:step(action)
 
-Performs a step in the environment using `action` (which may be a list - see below), and returns the `reward`, the `observation` of the state transitioned to, and a `terminal` flag.
+Performs a step in the environment using `action` (which may be a list - see below), and returns the `reward`, the `observation` of the state transitioned to, and a `terminal` flag. Optionally provides `actionTaken`, if the environment provides supervision in the form of the actual action taken by the agent in spite of the provided action.
 
 ### stateSpec = env:getStateSpec()
 

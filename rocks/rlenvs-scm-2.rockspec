@@ -3,7 +3,7 @@ version = "scm-1"
 
 source = {
   url = "git://github.com/Kaixhin/rlenvs.git",
-  branch = "v1"
+  branch = "master"
 }
 
 description = {

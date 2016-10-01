@@ -25,18 +25,32 @@ end
 
 -- 4 states returned, of type 'int', of dimensionality 1, where x and y are 0-5, fuel is -1-12, passenger position is 1-5 and destination is 1-4
 function Taxi:getStateSpec()
-  return {
-    {'int', 1, {0, 4}}, -- x
-    {'int', 1, {0, 4}}, -- y
-    {'int', 1, {-1, 12}}, -- Fuel
-    {'int', 1, {1, 5}}, -- Passenger location
-    {'int', 1, {1, 4}}, -- Destination TODO: Work out why there are apparently 5 destination states in the original paper
+  local state = {}
+  state['name'] = 'Box'
+  state['shape'] = {5}
+  state['low'] = {
+    0, -- x
+    0, -- y
+    -1, -- Fuel
+    1, -- Passenger location
+    1 -- Destination TODO: Work out why there are apparently 5 destination states in the original paper
   }
+  state['high'] = {
+    4, -- x
+    4, -- y
+    12, -- Fuel
+    5, -- Passenger location
+    4 -- Destination
+  }
+  return state
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, where 1-4 is move N, E, S, W, 5 is Pickup, 6 is Putdown and 7 is Fillup
 function Taxi:getActionSpec()
-  return {'int', 1, {1, 7}}
+  local action = {}
+  action['name'] = 'Discrete'
+  action['n'] = 7
+  return action
 end
 
 -- Min and max reward

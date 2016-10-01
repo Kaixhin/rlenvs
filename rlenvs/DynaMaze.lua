@@ -28,15 +28,26 @@ end
 
 -- 2 states returned, of type 'int', of dimensionality 1, where x is 1-9 and y is 1-6
 function DynaMaze:getStateSpec()
-  return {
-    {'int', 1, {1, 9}}, -- x
-    {'int', 1, {1, 6}} -- y
+  local state = {}
+  state['name'] = 'Box'
+  state['shape'] = {2}
+  state['low'] = {
+    1, -- x
+    1 -- y
   }
+  state['high'] = {
+    9, -- x
+    6 -- y
+  }
+  return state
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 1 and 4
 function DynaMaze:getActionSpec()
-  return {'int', 1, {1, 4}}
+  local action = {}
+  action['name'] = 'Discrete'
+  action['n'] = 4
+  return action
 end
 
 -- Min and max reward
@@ -57,6 +68,7 @@ end
 
 -- Move up, right, down or left
 function DynaMaze:step(action)
+  action = action + 1 -- scale action
   local reward = 0
   local terminal = false
 

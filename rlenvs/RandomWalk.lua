@@ -9,12 +9,18 @@ end
 
 -- 1 states returned, of type 'int', of dimensionality 1, between 0 and 6 (the terminal states)
 function RandomWalk:getStateSpec()
-  return {'int', 1, {0, 6}} -- Position
+  local state = {}
+  state['name'] = 'Discrete'
+  state['n'] = 6
+  return state
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 0 and 1 (left or right)
 function RandomWalk:getActionSpec()
-  return {'int', 1, {0, 1}}
+  local action = {}
+  action['name'] = 'Discrete'
+  action['n'] = 2
+  return action
 end
 
 -- Min and max reward

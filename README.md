@@ -11,12 +11,13 @@ Reinforcement learning environments for Torch7, inspired by RL-Glue [[1]](#refer
 - rlenvs.DynaMaze [[8]](#references)
 - rlenvs.GridWorld [[9]](#references)
 - rlenvs.JacksCarRental [[7]](#references)
-- rlenvs.MountainCar [[10]](#references)
-- rlenvs.MultiArmedBandit [[11, 12]](#references)
-- rlenvs.RandomWalk [[13]](#references)
-- rlenvs.Taxi [[14]](#references)
+- rlenvs.Minecraft (Project Malmö)\* [[10]](#references)
+- rlenvs.MountainCar [[11]](#references)
+- rlenvs.MultiArmedBandit [[12, 13]](#references)
+- rlenvs.RandomWalk [[14]](#references)
+- rlenvs.Taxi [[15]](#references)
 - rlenvs.WindyWorld [[7]](#references)
-- rlenvs.XOWorld [[15]](#references)
+- rlenvs.XOWorld [[16]](#references)
 
 Run `th experiment.lua` (or `qlua experiment.lua`) to run a demo of a random agent playing Catch.
 
@@ -29,10 +30,27 @@ luarocks install https://raw.githubusercontent.com/Kaixhin/rlenvs/master/rocks/r
 ```
 
 #### Atari Dependencies
+
 ```sh
 luarocks install https://raw.githubusercontent.com/lake4790k/xitari/master/xitari-0-0.rockspec
 luarocks install https://raw.githubusercontent.com/Kaixhin/alewrap/master/alewrap-0-0.rockspec
 ```
+
+Requires a [supported](https://github.com/Kaixhin/Atari/blob/master/roms/README.md) Atari ROM to run.
+
+#### Minecraft Dependencies
+
+```sh
+luarocks install luasocket
+```
+
+Requires [Malmö](https://github.com/Microsoft/malmo) (includes Minecraft), extracted with directory name `MalmoPlatform`. `libMalmoLua.so` should be added to `LUA_CPATH`. For example, if `MalmoPlatform` is in your home directory, add the following to the end of your `~/.bashrc`:
+
+```sh
+export LUA_CPATH=~/MalmoPlatform/Torch_Examples/libMalmoLua.so;$LUA_CPATH
+```
+
+The Malmö client (`launchClient.sh`) must be operating to run.
 
 ## Usage
 
@@ -48,6 +66,10 @@ local observation = env:start()
 
 **Note that the API is under development and may be subject to change**
 
+### rlenvs.envs
+
+A table of all possible environments implemented in rlenvs.
+
 ### observation = env:start([opts])
 
 Starts a new episode in the environment and returns the first `observation`. May take `opts`.
@@ -56,7 +78,7 @@ Starts a new episode in the environment and returns the first `observation`. May
 
 Performs a step in the environment using `action` (which may be a list - see below), and returns the `reward`, the `observation` of the state transitioned to, and a `terminal` flag. Optionally provides `actionTaken`, if the environment provides supervision in the form of the actual action taken by the agent in spite of the provided action.
 
-### stateSpec = env:getStateSpec()
+### stateSpec = env:getStateSpace()
 
 Returns a state specification as a list with 3 elements:
 
@@ -68,11 +90,11 @@ Returns a state specification as a list with 3 elements:
 
 If several states are returned, `stateSpec` is itself a list of state specifications. Ranges may use `nil` if unknown.
 
-### actionSpec = env:getActionSpec()
+### actionSpec = env:getActionSpace()
 
 Returns an action specification, with the same structure as used for state specifications.
 
-### minReward, maxReward = env:getRewardSpec()
+### minReward, maxReward = env:getRewardSpace()
 
 Returns the minimum and maximum rewards produced by the environment. Values may be `nil` if unknown.
 
@@ -111,9 +133,10 @@ Environments must inherit from `Env` and therefore implement the above methods (
 [7] Sutton, R. S., & Barto, A. G. (1998). *Reinforcement learning: An introduction* (Vol. 1, No. 1). Cambridge: MIT press.  
 [8] Sutton, R. S. (1990). Integrated architectures for learning, planning, and reacting based on approximating dynamic programming. In *Proceedings of the seventh international conference on machine learning* (pp. 216-224).  
 [9] Boyan, J., & Moore, A. W. (1995). Generalization in reinforcement learning: Safely approximating the value function. *Advances in neural information processing systems*, 369-376.  
-[10] Singh, S. P., & Sutton, R. S. (1996). Reinforcement learning with replacing eligibility traces. *Machine learning, 22*(1-3), 123-158.  
-[11] Robbins, H. (1985). Some aspects of the sequential design of experiments. In *Herbert Robbins Selected Papers* (pp. 169-177). Springer New York.  
-[12] Whittle, P. (1988). Restless bandits: Activity allocation in a changing world. *Journal of applied probability*, 287-298.  
-[13] Sutton, R. S. (1988). Learning to predict by the methods of temporal differences. *Machine learning, 3*(1), 9-44.  
-[14] Dietterich, T. G. (2000). Hierarchical Reinforcement Learning with the MAXQ Value Function Decomposition. In *Journal of Artificial Intelligence Research*.  
-[15] Garnelo, M., Arulkumaran, K., & Shanahan, M. (2016). Towards Deep Symbolic Reinforcement Learning. *arXiv preprint arXiv:1609.05518*.  
+[10] Johnson, M., Hofmann, K., Hutton, T., & Bignell, D. (2016). The Malmo platform for artificial intelligence experimentation. In *International joint conference on artificial intelligence (IJCAI)*.  
+[11] Singh, S. P., & Sutton, R. S. (1996). Reinforcement learning with replacing eligibility traces. *Machine learning, 22*(1-3), 123-158.  
+[12] Robbins, H. (1985). Some aspects of the sequential design of experiments. In *Herbert Robbins Selected Papers* (pp. 169-177). Springer New York.  
+[13] Whittle, P. (1988). Restless bandits: Activity allocation in a changing world. *Journal of applied probability*, 287-298.  
+[14] Sutton, R. S. (1988). Learning to predict by the methods of temporal differences. *Machine learning, 3*(1), 9-44.  
+[15] Dietterich, T. G. (2000). Hierarchical Reinforcement Learning with the MAXQ Value Function Decomposition. In *Journal of Artificial Intelligence Research*.  
+[16] Garnelo, M., Arulkumaran, K., & Shanahan, M. (2016). Towards Deep Symbolic Reinforcement Learning. *arXiv preprint arXiv:1609.05518*.  

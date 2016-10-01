@@ -6,6 +6,7 @@ local XOWorld, super = classic.class('XOWorld', Env)
 -- Constructor
 function XOWorld:_init(opts)
   opts = opts or {}
+  super._init(self, opts)
 
   -- Game mode (all circles, negative, or circles and crosses, negative and positive)
   self.double = opts.double or false
@@ -102,24 +103,36 @@ function XOWorld:_init(opts)
                        {67, 7}, {67, 27}, {67, 47}, {67, 67}}
 end
 
--- 1 state returned, of type 'int', of dimensionality 1 x self.size x self.size, between 0 and 1
-function XOWorld:getStateSpec()
-  return {'int', {1, self.size, self.size}, {0, 1}}
+-- 1 state returned, of type 'real', of dimensionality 3 x 210 x 160, between 0 and 1
+function XOWorld:getStateSpace()
+    local state = {}
+    state['name'] = 'Box'
+    state['shape'] = {1, self.size, self.size}
+    state['low'] = {
+        0
+    }
+    state['high'] = {
+        1
+    }
+    return state
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 0 and 3
-function XOWorld:getActionSpec()
-  return {'int', 1, {0, 3}}
+function XOWorld:getActionSpace()
+    local action = {}
+    action['name'] = 'Discrete'
+    action['n'] = 4
+    return action
 end
 
 -- RGB screen of size self.size x self.size
 function XOWorld:getDisplaySpec()
-  return {'real', {3, self.size, self.size}, {0, 1}}
+    return {'real', {3, self.size, self.size}, {0, 1}}
 end
 
 -- Min and max reward
-function XOWorld:getRewardSpec()
-  return -10, 10
+function XOWorld:getRewardSpace()
+    return -10, 10
 end
 
 -- Redraws screen based on state and performs collision detection
@@ -188,7 +201,7 @@ function XOWorld:update()
 end
 
 -- Starts new game
-function XOWorld:start()
+function XOWorld:_start()
   -- Reset time
   self.time = 1
 
@@ -257,7 +270,7 @@ function XOWorld:start()
 end
 
 -- Steps in a game
-function XOWorld:step(action)
+function XOWorld:_step(action)
   -- Move player
   if action == 0 then
     self.x = math.max(self.x - 1, 1)

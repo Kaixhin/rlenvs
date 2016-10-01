@@ -19,28 +19,40 @@ end
 -- Constructor
 function JacksCarRental:_init(opts)
   opts = opts or {}
+  super._init(self, opts)
 end
 
 -- 2 states returned, of type 'int', of dimensionality 1, for 0-20 cars
-function JacksCarRental:getStateSpec()
-  return {
-    {'int', 1, {0, 20}}, -- Lot 1
-    {'int', 1, {0, 20}} -- Lot 2
+function JacksCarRental:getStateSpace()
+  local state = {}
+  state['name'] = 'Box'
+  state['shape'] = {2}
+  state['low'] = {
+    0, -- Lot 1
+    0 -- Lot 2
   }
+  state['high'] = {
+    20, -- Lot 1
+    20 -- Lot 2
+  }
+  return state
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between -5 and 5 (max 5 cars can be moved overnight)
-function JacksCarRental:getActionSpec()
-  return {'int', 1, {-5, 5}} -- Negative numbers indicate transferring cars from lot 2 to lot 1
+function JacksCarRental:getActionSpace()
+  local action = {}
+  action['name'] = 'Discrete'
+  action['n'] = 10
+  return action
 end
 
 -- Min and max reward
-function JacksCarRental:getRewardSpec()
+function JacksCarRental:getRewardSpace()
   return 0, 200
 end
 
 -- Resets the cars to 10 at each lot
-function JacksCarRental:start()
+function JacksCarRental:_start()
   self.lot1 = 10
   self.lot2 = 10
 
@@ -48,7 +60,8 @@ function JacksCarRental:start()
 end
 
 -- Acts out a day and night for Jack's Car Rental
-function JacksCarRental:step(action)
+function JacksCarRental:_step(action)
+  action = action - 5 -- scale action
   local reward = 0 -- Reward in $
 
   -- Customers rent cars from lot 1 during the day
@@ -78,7 +91,7 @@ function JacksCarRental:step(action)
     self.lot1 = self.lot1 - carsMoved
     self.lot2 = self.lot2 + carsMoved
     reward = reward - 2*carsMoved
-  elseif action < 0 then
+  elseif action < 0 then -- Negative numbers indicate transferring cars from lot 2 to lot 1
     carsMoved = math.min(-action, self.lot2)
     carsMoved = math.min(carsMoved, 20 - self.lot1)
     -- Move cars

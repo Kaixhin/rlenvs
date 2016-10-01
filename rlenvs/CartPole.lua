@@ -1,11 +1,14 @@
 local classic = require 'classic'
 
 local CartPole, super = classic.class('CartPole', Env)
+CartPole.timeStepLimit = 200
 
 -- Constructor
 function CartPole:_init(opts)
   opts = opts or {}
-  
+  opts.timeStepLimit = CartPole.timeStepLimit
+  super._init(self, opts)
+
   -- Constants
   self.gravity = opts.gravity or 9.8
   self.cartMass = opts.cartMass or 1.0
@@ -19,27 +22,40 @@ function CartPole:_init(opts)
 end
 
 -- 4 states returned, of type 'real', of dimensionality 1, with differing ranges
-function CartPole:getStateSpec()
-  return {
-    {'real', 1, {-2.4, 2.4}}, -- Cart position
-    {'real', 1, {nil, nil}}, -- Cart velocity
-    {'real', 1, {math.rad(-12), math.rad(12)}}, -- Pole angle
-    {'real', 1, {nil, nil}} -- Pole angular velocity
+function CartPole:getStateSpace()
+  local state = {}
+  state['name'] = 'Box'
+  state['shape'] = {4}
+  state['low'] = {
+    -2.4, -- Cart position
+    math.huge, -- Cart velocity
+    math.rad(-12), -- Pole angle
+    math.huge -- Pole angular velocity
   }
+  state['high'] = {
+    2.4, -- Cart position
+    math.huge, -- Cart velocity
+    math.rad(12), -- Pole angle
+    math.huge -- Pole angular velocity
+  }
+  return state
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 0 and 1 (left, right)
-function CartPole:getActionSpec()
-  return {'int', 1, {0, 1}}
+function CartPole:getActionSpace()
+  local action = {}
+  action['name'] = 'Discrete'
+  action['n'] = 2
+  return action
 end
 
 -- Min and max reward
-function CartPole:getRewardSpec()
+function CartPole:getRewardSpace()
   return -1, 0
 end
 
 -- Resets the cart
-function CartPole:start()
+function CartPole:_start()
   -- Reset position, angle and velocities
   self.x = 0 -- Cart position (m)
   self.xDot = 0 -- Cart velocity
@@ -50,7 +66,7 @@ function CartPole:start()
 end
 
 -- Drives the cart
-function CartPole:step(action)
+function CartPole:_step(action)
   -- Calculate acceleration
   local force = action == 1 and self.forceMagnitude or -self.forceMagnitude
   local cosTheta = math.cos(self.theta)
@@ -66,10 +82,10 @@ function CartPole:step(action)
   self.thetaDot = self.thetaDot + self.tau * thetaDotDot
 
   -- Check failure (if cart reaches sides of track/pole tips too much)
-  local reward = 0
+  local reward = 1
   local terminal = false
   if self.x < -2.4 or self.x > 2.4 or self.theta < math.rad(-12) or self.theta > math.rad(12) then
-    reward = -1
+    reward = 0
     terminal = true
   end
 

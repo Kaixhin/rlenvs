@@ -20,15 +20,26 @@ end
 
 -- 2 states returned, of type 'real', of dimensionality 1, from 0-1
 function GridWorld:getStateSpec()
-  return {
-    {'real', 1, {0, 1}}, -- x
-    {'real', 1, {0, 1}} -- y
+  local state = {}
+  state['name'] = 'Box'
+  state['shape'] = {2}
+  state['low'] = {
+    0, -- x
+    0 -- y
   }
+  state['high'] = {
+    1, -- x
+    1 -- y
+  }
+  return state
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 1 and 4
 function GridWorld:getActionSpec()
-  return {'int', 1, {1, 4}}
+  local action = {}
+  action['name'] = 'Discrete'
+  action['n'] = 4
+  return action
 end
 
 -- Min and max reward
@@ -45,6 +56,7 @@ end
 
 -- Move up, right, down or left
 function GridWorld:step(action)
+  action = action + 1 -- scale action
   local terminal = false
 
   -- Move

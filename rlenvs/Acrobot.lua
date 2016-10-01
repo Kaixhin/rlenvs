@@ -22,17 +22,30 @@ end
 
 -- 4 states returned, of type 'real', of dimensionality 1, with differing ranges
 function Acrobot:getStateSpec()
-  return {
-    {'real', 1, {-math.pi, math.pi}}, -- Joint 1 angle
-    {'real', 1, {-math.pi, math.pi}}, -- Joint 2 angle
-    {'real', 1, {-4*math.pi, 4*math.pi}}, -- Joint 1 angular velocity
-    {'real', 1, {-9*math.pi, 9*math.pi}} -- Joint 2 angular velocity
+  local state = {}
+  state['name'] = 'Box'
+  state['shape'] = {4}
+  state['low'] = {
+    -math.pi, -- Joint 1 angle
+    -math.pi, -- Joint 2 angle
+    -4*math.pi, -- Joint 1 angular velocity
+    -9*math.pi -- Joint 2 angular velocity
   }
+  state['high'] = {
+    math.pi, -- Joint 1 angle
+    math.pi, -- Joint 2 angle
+    4*math.pi, -- Joint 1 angular velocity
+    9*math.pi -- Joint 2 angular velocity
+  }
+  return state
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, with second torque joint in {-1, 0, 1}
 function Acrobot:getActionSpec()
-  return {'int', 1, {-1, 1}}
+  local action = {}
+  action['name'] = 'Discrete'
+  action['n'] = 3
+  return action
 end
 
 -- Min and max reward
@@ -53,6 +66,7 @@ end
 
 -- Swings the pole via torque on second joint
 function Acrobot:step(action)
+  action = action - 1 -- rescale the action
   local reward = -1
   local terminal = false
 

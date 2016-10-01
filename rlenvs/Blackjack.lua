@@ -13,16 +13,28 @@ end
 
 -- 2 states returned, of type 'int', of dimensionality 1, for the player sum, dealer's showing card, and player-usable ace
 function Blackjack:getStateSpec()
-  return {
-    {'int', 1, {2, 20}},
-    {'int', 1, {1, 10}},
-    {'int', 1, {0, 1}}
+  local state = {}
+  state['name'] = 'Box'
+  state['shape'] = {3}
+  state['low'] = {
+    2,
+    1,
+    0
   }
+  state['high'] = {
+    20,
+    10,
+    1
+  }
+  return state
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, either stand or hit
 function Blackjack:getActionSpec()
-  return {'int', 1, {0, 1}}
+  local action = {}
+  action['name'] = 'Discrete'
+  action['n'] = 2
+  return action
 end
 
 -- Min and max reward

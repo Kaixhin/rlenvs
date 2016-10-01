@@ -45,12 +45,24 @@ end
 
 -- 1 state returned, of type 'real', of dimensionality 3 x 210 x 160, between 0 and 1
 function Atari:getStateSpec()
-  return {'real', {3, 210, 160}, {0, 1}}
+  local state = {}
+  state['name'] = 'Box'
+  state['shape'] = {3, 210, 160}
+  state['low'] = {
+    0
+  }
+  state['high'] = {
+    1
+  }
+  return state
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 1 and 18 (max)
 function Atari:getActionSpec()
-  return {'int', 1, {1, #self.actions}}
+  local action = {}
+  action['name'] = 'Discrete'
+  action['n'] = #self.actions
+  return action
 end
 
 -- RGB screen of height 210 and width 160

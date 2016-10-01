@@ -20,17 +20,30 @@ end
 
 -- 4 states returned, of type 'real', of dimensionality 1, with differing ranges
 function CartPole:getStateSpec()
-  return {
-    {'real', 1, {-2.4, 2.4}}, -- Cart position
-    {'real', 1, {nil, nil}}, -- Cart velocity
-    {'real', 1, {math.rad(-12), math.rad(12)}}, -- Pole angle
-    {'real', 1, {nil, nil}} -- Pole angular velocity
+  local state = {}
+  state['name'] = 'Box'
+  state['shape'] = {4}
+  state['low'] = {
+    -2.4, -- Cart position
+    math.huge, -- Cart velocity
+    math.rad(-12), -- Pole angle
+    math.huge -- Pole angular velocity
   }
+  state['high'] = {
+    2.4, -- Cart position
+    math.huge, -- Cart velocity
+    math.rad(12), -- Pole angle
+    math.huge -- Pole angular velocity
+  }
+  return state
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 0 and 1 (left, right)
 function CartPole:getActionSpec()
-  return {'int', 1, {0, 1}}
+  local action = {}
+  action['name'] = 'Discrete'
+  action['n'] = 2
+  return action
 end
 
 -- Min and max reward

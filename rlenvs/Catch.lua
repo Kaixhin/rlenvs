@@ -29,12 +29,24 @@ end
 
 -- 1 state returned, of type 'int', of dimensionality 1 x self.size x self.size, between 0 and 1
 function Catch:getStateSpec()
-  return {'int', {1, self.size, self.size}, {0, 1}}
+  local state = {}
+  state['name'] = 'Box'
+  state['shape'] = {1, self.size, self.size}
+  state['low'] = {
+    0
+  }
+  state['high'] = {
+    1
+  }
+  return state
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 0 and 2
 function Catch:getActionSpec()
-  return {'int', 1, {0, 2}}
+  local action = {}
+  action['name'] = 'Discrete'
+  action['n'] = 3
+  return action
 end
 
 -- RGB screen of size self.size x self.size

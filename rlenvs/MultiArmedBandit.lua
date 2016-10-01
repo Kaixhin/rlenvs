@@ -25,7 +25,10 @@ end
 
 -- 1 action required, of type 'int', of dimensionality 1, of the number of arms
 function MultiArmedBandit:getActionSpec()
-  return {'int', 1, {1, self.nArms}}
+  local action = {}
+  action['name'] = 'Discrete'
+  action['n'] = self.nArms
+  return action
 end
 
 -- Min and max rewards unknown when sampling from distributions
@@ -40,6 +43,7 @@ end
 
 -- Pulls an arm
 function MultiArmedBandit:step(action)
+  action = action + 1 -- scale action
   -- Sample for reward
   local reward = torch.normal(self.armMeans[action], 1)
 

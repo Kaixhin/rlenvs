@@ -19,12 +19,12 @@ function MultiArmedBandit:_init(opts)
 end
 
 -- No state (not a contextual bandit)
-function MultiArmedBandit:getStateSpec()
+function MultiArmedBandit:stateSpace()
   return nil
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, of the number of arms
-function MultiArmedBandit:getActionSpec()
+function MultiArmedBandit:actionSpace()
   local action = {}
   action['name'] = 'Discrete'
   action['n'] = self.nArms
@@ -32,7 +32,7 @@ function MultiArmedBandit:getActionSpec()
 end
 
 -- Min and max rewards unknown when sampling from distributions
-function MultiArmedBandit:getRewardSpec()
+function MultiArmedBandit:rewardSpace()
   return nil, nil
 end
 

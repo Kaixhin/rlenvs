@@ -8,7 +8,7 @@ function RandomWalk:_init(opts)
 end
 
 -- 1 states returned, of type 'int', of dimensionality 1, between 0 and 6 (the terminal states)
-function RandomWalk:getStateSpec()
+function RandomWalk:stateSpace()
   local state = {}
   state['name'] = 'Discrete'
   state['n'] = 6
@@ -16,7 +16,7 @@ function RandomWalk:getStateSpec()
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 0 and 1 (left or right)
-function RandomWalk:getActionSpec()
+function RandomWalk:actionSpace()
   local action = {}
   action['name'] = 'Discrete'
   action['n'] = 2
@@ -24,7 +24,7 @@ function RandomWalk:getActionSpec()
 end
 
 -- Min and max reward
-function RandomWalk:getRewardSpec()
+function RandomWalk:rewardSpace()
   return 0, 1
 end
 

@@ -22,7 +22,7 @@ function JacksCarRental:_init(opts)
 end
 
 -- 2 states returned, of type 'int', of dimensionality 1, for 0-20 cars
-function JacksCarRental:getStateSpec()
+function JacksCarRental:stateSpace()
   local state = {}
   state['name'] = 'Box'
   state['shape'] = {2}
@@ -38,7 +38,7 @@ function JacksCarRental:getStateSpec()
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between -5 and 5 (max 5 cars can be moved overnight)
-function JacksCarRental:getActionSpec()
+function JacksCarRental:actionSpace()
   local action = {}
   action['name'] = 'Discrete'
   action['n'] = 10
@@ -46,7 +46,7 @@ function JacksCarRental:getActionSpec()
 end
 
 -- Min and max reward
-function JacksCarRental:getRewardSpec()
+function JacksCarRental:rewardSpace()
   return 0, 200
 end
 

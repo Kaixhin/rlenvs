@@ -21,7 +21,7 @@ function Acrobot:_init(opts)
 end
 
 -- 4 states returned, of type 'real', of dimensionality 1, with differing ranges
-function Acrobot:getStateSpec()
+function Acrobot:stateSpace()
   local state = {}
   state['name'] = 'Box'
   state['shape'] = {4}
@@ -41,7 +41,7 @@ function Acrobot:getStateSpec()
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, with second torque joint in {-1, 0, 1}
-function Acrobot:getActionSpec()
+function Acrobot:actionSpace()
   local action = {}
   action['name'] = 'Discrete'
   action['n'] = 3
@@ -49,7 +49,7 @@ function Acrobot:getActionSpec()
 end
 
 -- Min and max reward
-function Acrobot:getRewardSpec()
+function Acrobot:rewardSpace()
   return -1, 0
 end
 

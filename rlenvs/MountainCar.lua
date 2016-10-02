@@ -8,7 +8,7 @@ function MountainCar:_init(opts)
 end
 
 -- 2 states returned, of type 'real', of dimensionality 1, with differing ranges
-function MountainCar:getStateSpec()
+function MountainCar:stateSpace()
   local state = {}
   state['name'] = 'Box'
   state['shape'] = {2}
@@ -24,7 +24,7 @@ function MountainCar:getStateSpec()
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between -1 and 1 (left, neutral, right)
-function MountainCar:getActionSpec()
+function MountainCar:actionSpace()
   local action = {}
   action['name'] = 'Discrete'
   action['n'] = 3
@@ -32,7 +32,7 @@ function MountainCar:getActionSpec()
 end
 
 -- Min and max reward
-function MountainCar:getRewardSpec()
+function MountainCar:rewardSpace()
   return -2, 0 -- As height = sin(3x) is between -1 and 1, and reward = height - 1
 end
 

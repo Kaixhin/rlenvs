@@ -6,7 +6,7 @@ local qt = pcall(require, 'qt')
 
 -- Initialise and start environment
 local env = Catch({level = 2})
-local actionSpace = env:actionSpace()
+local getActionSpace = env:getActionSpace()
 local observation = env:start()
 
 local reward, terminal = 0, false
@@ -19,7 +19,7 @@ local window = qt and image.display({image=observation, zoom=10})
 for i = 1, nEpisodes do
   while not terminal do
     -- Pick random action and execute it
-    local action = torch.random(0, actionSpace['n'] - 1)
+    local action = torch.random(0, getActionSpace['n'] - 1)
     reward, observation, terminal = env:step(action)
     totalReward = totalReward + reward
 

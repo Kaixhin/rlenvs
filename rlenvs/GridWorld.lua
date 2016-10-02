@@ -19,7 +19,7 @@ function GridWorld:_init(opts)
 end
 
 -- 2 states returned, of type 'real', of dimensionality 1, from 0-1
-function GridWorld:stateSpace()
+function GridWorld:getStateSpace()
   local state = {}
   state['name'] = 'Box'
   state['shape'] = {2}
@@ -35,7 +35,7 @@ function GridWorld:stateSpace()
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 1 and 4
-function GridWorld:actionSpace()
+function GridWorld:getActionSpace()
   local action = {}
   action['name'] = 'Discrete'
   action['n'] = 4

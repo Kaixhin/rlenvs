@@ -21,7 +21,7 @@ function Acrobot:_init(opts)
 end
 
 -- 4 states returned, of type 'real', of dimensionality 1, with differing ranges
-function Acrobot:stateSpace()
+function Acrobot:getStateSpace()
   local state = {}
   state['name'] = 'Box'
   state['shape'] = {4}
@@ -41,7 +41,7 @@ function Acrobot:stateSpace()
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, with second torque joint in {-1, 0, 1}
-function Acrobot:actionSpace()
+function Acrobot:getActionSpace()
   local action = {}
   action['name'] = 'Discrete'
   action['n'] = 3

@@ -19,12 +19,12 @@ function MultiArmedBandit:_init(opts)
 end
 
 -- No state (not a contextual bandit)
-function MultiArmedBandit:stateSpace()
+function MultiArmedBandit:getStateSpace()
   return nil
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, of the number of arms
-function MultiArmedBandit:actionSpace()
+function MultiArmedBandit:getActionSpace()
   local action = {}
   action['name'] = 'Discrete'
   action['n'] = self.nArms

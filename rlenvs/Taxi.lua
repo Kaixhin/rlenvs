@@ -24,7 +24,7 @@ function Taxi:_init(opts)
 end
 
 -- 4 states returned, of type 'int', of dimensionality 1, where x and y are 0-5, fuel is -1-12, passenger position is 1-5 and destination is 1-4
-function Taxi:stateSpace()
+function Taxi:getStateSpace()
   local state = {}
   state['name'] = 'Box'
   state['shape'] = {5}
@@ -46,7 +46,7 @@ function Taxi:stateSpace()
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, where 1-4 is move N, E, S, W, 5 is Pickup, 6 is Putdown and 7 is Fillup
-function Taxi:actionSpace()
+function Taxi:getActionSpace()
   local action = {}
   action['name'] = 'Discrete'
   action['n'] = 7

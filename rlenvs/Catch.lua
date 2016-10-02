@@ -28,7 +28,7 @@ function Catch:_init(opts)
 end
 
 -- 1 state returned, of type 'int', of dimensionality 1 x self.size x self.size, between 0 and 1
-function Catch:stateSpace()
+function Catch:getStateSpace()
   local state = {}
   state['name'] = 'Box'
   state['shape'] = {1, self.size, self.size}
@@ -42,7 +42,7 @@ function Catch:stateSpace()
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 0 and 2
-function Catch:actionSpace()
+function Catch:getActionSpace()
   local action = {}
   action['name'] = 'Discrete'
   action['n'] = 3

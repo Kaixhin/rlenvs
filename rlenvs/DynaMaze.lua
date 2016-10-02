@@ -27,7 +27,7 @@ function DynaMaze:_init(opts)
 end
 
 -- 2 states returned, of type 'int', of dimensionality 1, where x is 1-9 and y is 1-6
-function DynaMaze:stateSpace()
+function DynaMaze:getStateSpace()
   local state = {}
   state['name'] = 'Box'
   state['shape'] = {2}
@@ -43,7 +43,7 @@ function DynaMaze:stateSpace()
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 1 and 4
-function DynaMaze:actionSpace()
+function DynaMaze:getActionSpace()
   local action = {}
   action['name'] = 'Discrete'
   action['n'] = 4

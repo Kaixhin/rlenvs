@@ -12,7 +12,7 @@ function Blackjack:_init(opts)
 end
 
 -- 2 states returned, of type 'int', of dimensionality 1, for the player sum, dealer's showing card, and player-usable ace
-function Blackjack:stateSpace()
+function Blackjack:getStateSpace()
   local state = {}
   state['name'] = 'Box'
   state['shape'] = {3}
@@ -30,7 +30,7 @@ function Blackjack:stateSpace()
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, either stand or hit
-function Blackjack:actionSpace()
+function Blackjack:getActionSpace()
   local action = {}
   action['name'] = 'Discrete'
   action['n'] = 2

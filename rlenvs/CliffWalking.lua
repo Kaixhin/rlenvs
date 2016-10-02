@@ -8,7 +8,7 @@ function CliffWalking:_init(opts)
 end
 
 -- 2 states returned, of type 'int', of dimensionality 1, where x is 1-12 and y is 1-4
-function CliffWalking:stateSpace()
+function CliffWalking:getStateSpace()
   local state = {}
   state['name'] = 'Box'
   state['shape'] = {2}
@@ -24,7 +24,7 @@ function CliffWalking:stateSpace()
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 1 and 4 (up|right|down|left)
-function CliffWalking:actionSpace()
+function CliffWalking:getActionSpace()
   local action = {}
   action['name'] = 'Discrete'
   action['n'] = 4

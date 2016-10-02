@@ -8,7 +8,7 @@ function MountainCar:_init(opts)
 end
 
 -- 2 states returned, of type 'real', of dimensionality 1, with differing ranges
-function MountainCar:stateSpace()
+function MountainCar:getStateSpace()
   local state = {}
   state['name'] = 'Box'
   state['shape'] = {2}
@@ -24,7 +24,7 @@ function MountainCar:stateSpace()
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between -1 and 1 (left, neutral, right)
-function MountainCar:actionSpace()
+function MountainCar:getActionSpace()
   local action = {}
   action['name'] = 'Discrete'
   action['n'] = 3

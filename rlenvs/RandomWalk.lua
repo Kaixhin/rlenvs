@@ -8,7 +8,7 @@ function RandomWalk:_init(opts)
 end
 
 -- 1 states returned, of type 'int', of dimensionality 1, between 0 and 6 (the terminal states)
-function RandomWalk:stateSpace()
+function RandomWalk:getStateSpace()
   local state = {}
   state['name'] = 'Discrete'
   state['n'] = 6
@@ -16,7 +16,7 @@ function RandomWalk:stateSpace()
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 0 and 1 (left or right)
-function RandomWalk:actionSpace()
+function RandomWalk:getActionSpace()
   local action = {}
   action['name'] = 'Discrete'
   action['n'] = 2

@@ -44,7 +44,7 @@ function Atari:_init(opts)
 end
 
 -- 1 state returned, of type 'real', of dimensionality 3 x 210 x 160, between 0 and 1
-function Atari:stateSpace()
+function Atari:getStateSpace()
   local state = {}
   state['name'] = 'Box'
   state['shape'] = {3, 210, 160}
@@ -58,7 +58,7 @@ function Atari:stateSpace()
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 1 and 18 (max)
-function Atari:actionSpace()
+function Atari:getActionSpace()
   local action = {}
   action['name'] = 'Discrete'
   action['n'] = #self.actions

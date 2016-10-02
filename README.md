@@ -55,7 +55,7 @@ Starts a new episode in the environment and returns the first `observation`. May
 
 Performs a step in the environment using `action` (which may be a list - see below), and returns the `reward`, the `observation` of the state transitioned to, and a `terminal` flag. Optionally provides `actionTaken`, if the environment provides supervision in the form of the actual action taken by the agent in spite of the provided action.
 
-### stateSpec = env:stateSpace()
+### stateSpec = env:getStateSpace()
 
 Returns a state specification as a list with 3 elements:
 
@@ -67,7 +67,7 @@ Returns a state specification as a list with 3 elements:
 
 If several states are returned, `stateSpec` is itself a list of state specifications. Ranges may use `nil` if unknown.
 
-### actionSpec = env:actionSpace()
+### actionSpec = env:getActionSpace()
 
 Returns an action specification, with the same structure as used for state specifications.
 

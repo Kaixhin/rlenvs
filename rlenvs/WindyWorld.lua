@@ -11,7 +11,7 @@ function WindyWorld:_init(opts)
 end
 
 -- 2 states returned, of type 'int', of dimensionality 1, where x is 1-10 and y is 1-7
-function WindyWorld:getStateSpec()
+function WindyWorld:stateSpace()
   local state = {}
   state['name'] = 'Box'
   state['shape'] = {5}
@@ -27,7 +27,7 @@ function WindyWorld:getStateSpec()
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 1 and 4 (for standard) or 1 and 8 (for king)
-function WindyWorld:getActionSpec()
+function WindyWorld:actionSpace()
   local action = {}
   action['name'] = 'Discrete'
   if self.king then
@@ -40,7 +40,7 @@ function WindyWorld:getActionSpec()
 end
 
 -- Min and max reward
-function WindyWorld:getRewardSpec()
+function WindyWorld:rewardSpace()
   return -1, -1
 end
 

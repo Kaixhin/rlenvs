@@ -19,7 +19,7 @@ function CartPole:_init(opts)
 end
 
 -- 4 states returned, of type 'real', of dimensionality 1, with differing ranges
-function CartPole:getStateSpec()
+function CartPole:stateSpace()
   local state = {}
   state['name'] = 'Box'
   state['shape'] = {4}
@@ -39,7 +39,7 @@ function CartPole:getStateSpec()
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 0 and 1 (left, right)
-function CartPole:getActionSpec()
+function CartPole:actionSpace()
   local action = {}
   action['name'] = 'Discrete'
   action['n'] = 2
@@ -47,7 +47,7 @@ function CartPole:getActionSpec()
 end
 
 -- Min and max reward
-function CartPole:getRewardSpec()
+function CartPole:rewardSpace()
   return -1, 0
 end
 

@@ -5,8 +5,8 @@ local Env = classic.class('Env')
 -- Denote interfaces
 Env:mustHave('start')
 Env:mustHave('step')
-Env:mustHave('getStateSpec')
-Env:mustHave('getActionSpec')
-Env:mustHave('getRewardSpec')
+Env:mustHave('stateSpace')
+Env:mustHave('actionSpace')
+Env:mustHave('rewardSpace')
 
 return Env

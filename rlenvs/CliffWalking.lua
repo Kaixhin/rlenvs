@@ -8,7 +8,7 @@ function CliffWalking:_init(opts)
 end
 
 -- 2 states returned, of type 'int', of dimensionality 1, where x is 1-12 and y is 1-4
-function CliffWalking:getStateSpec()
+function CliffWalking:stateSpace()
   local state = {}
   state['name'] = 'Box'
   state['shape'] = {2}
@@ -24,7 +24,7 @@ function CliffWalking:getStateSpec()
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 1 and 4 (up|right|down|left)
-function CliffWalking:getActionSpec()
+function CliffWalking:actionSpace()
   local action = {}
   action['name'] = 'Discrete'
   action['n'] = 4
@@ -32,7 +32,7 @@ function CliffWalking:getActionSpec()
 end
 
 -- Min and max reward
-function CliffWalking:getRewardSpec()
+function CliffWalking:rewardSpace()
   return -100, -1
 end
 

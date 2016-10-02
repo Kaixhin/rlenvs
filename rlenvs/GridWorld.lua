@@ -19,7 +19,7 @@ function GridWorld:_init(opts)
 end
 
 -- 2 states returned, of type 'real', of dimensionality 1, from 0-1
-function GridWorld:getStateSpec()
+function GridWorld:stateSpace()
   local state = {}
   state['name'] = 'Box'
   state['shape'] = {2}
@@ -35,7 +35,7 @@ function GridWorld:getStateSpec()
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 1 and 4
-function GridWorld:getActionSpec()
+function GridWorld:actionSpace()
   local action = {}
   action['name'] = 'Discrete'
   action['n'] = 4
@@ -43,7 +43,7 @@ function GridWorld:getActionSpec()
 end
 
 -- Min and max reward
-function GridWorld:getRewardSpec()
+function GridWorld:rewardSpace()
   return torch.min(self.world), 0
 end
 

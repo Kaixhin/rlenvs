@@ -6,8 +6,8 @@ local qt = pcall(require, 'qt')
 
 -- Initialise and start environment
 local env = Catch({level = 2})
-local stateSpec = env:getStateSpec()
-local actionSpec = env:getActionSpec()
+local stateSpec = env:stateSpace()
+local actionSpec = env:actionSpace()
 local observation = env:start()
 
 local reward, terminal

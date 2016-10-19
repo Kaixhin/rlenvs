@@ -24,4 +24,10 @@ for k, v in pairs(rlenvs) do
   end
 end
 
+local envs ={}
+for k,_ in pairs(rlenvs) do
+  envs[#envs+1]=k
+end
+rlenvs.envs = envs
+
 return rlenvs

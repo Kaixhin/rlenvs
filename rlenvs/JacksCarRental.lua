@@ -46,7 +46,7 @@ function JacksCarRental:getActionSpace()
 end
 
 -- Min and max reward
-function JacksCarRental:rewardSpace()
+function JacksCarRental:getRewardSpace()
   return 0, 200
 end
 
@@ -59,7 +59,7 @@ function JacksCarRental:start()
 end
 
 -- Acts out a day and night for Jack's Car Rental
-function JacksCarRental:step(action)
+function JacksCarRental:_step(action)
   action = action - 5 -- scale action
   local reward = 0 -- Reward in $
 

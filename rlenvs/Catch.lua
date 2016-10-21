@@ -55,7 +55,7 @@ function Catch:getDisplaySpec()
 end
 
 -- Min and max reward
-function Catch:rewardSpace()
+function Catch:getRewardSpace()
   return 0, 1
 end
 
@@ -92,7 +92,7 @@ function Catch:start()
 end
 
 -- Steps in a game
-function Catch:step(action)
+function Catch:_step(action)
   -- Reward is 0 by default
   local reward = 0
 

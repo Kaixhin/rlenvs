@@ -1,6 +1,6 @@
 local image = require 'image'
-local Catch = require 'rlenvs/Catch'
-
+require 'rlenvs'
+local Catch = require('rlenvs.Catch')
 -- Detect QT for image display
 local qt = pcall(require, 'qt')
 

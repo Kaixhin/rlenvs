@@ -54,7 +54,7 @@ function Taxi:getActionSpace()
 end
 
 -- Min and max reward
-function Taxi:rewardSpace()
+function Taxi:getRewardSpace()
   return -20, 20
 end
 
@@ -104,7 +104,7 @@ function Taxi:validMove(action)
 end
 
 -- Move up, right, down or left
-function Taxi:step(action)
+function Taxi:_step(action)
   local reward = -1
   local terminal = false
 

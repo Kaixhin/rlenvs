@@ -32,7 +32,7 @@ function CliffWalking:getActionSpace()
 end
 
 -- Min and max reward
-function CliffWalking:rewardSpace()
+function CliffWalking:getRewardSpace()
   return -100, -1
 end
 
@@ -44,7 +44,7 @@ function CliffWalking:start()
 end
 
 -- Move up, right, down or left
-function CliffWalking:step(action)
+function CliffWalking:_step(action)
   action = action + 1 -- scale action
   local reward = -1
   local terminal = false

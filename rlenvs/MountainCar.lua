@@ -32,7 +32,7 @@ function MountainCar:getActionSpace()
 end
 
 -- Min and max reward
-function MountainCar:rewardSpace()
+function MountainCar:getRewardSpace()
   return -2, 0 -- As height = sin(3x) is between -1 and 1, and reward = height - 1
 end
 
@@ -46,7 +46,7 @@ function MountainCar:start()
 end
 
 -- Drives the car
-function MountainCar:step(action)
+function MountainCar:_step(action)
   action = action - 1  -- scale action
   -- Calculate height
   local height = math.sin(3*self.position)

@@ -71,7 +71,7 @@ function Atari:getDisplaySpec()
 end
 
 -- Min and max reward (unknown)
-function Atari:rewardSpace()
+function Atari:getRewardSpace()
   return nil, nil
 end
 
@@ -89,7 +89,7 @@ function Atari:start()
 end
 
 -- Steps in a game
-function Atari:step(action)
+function Atari:_step(action)
   -- Map action index to action for game
   action = self.actions[action]
 

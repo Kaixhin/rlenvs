@@ -38,7 +38,7 @@ function Blackjack:getActionSpace()
 end
 
 -- Min and max reward
-function Blackjack:rewardSpace()
+function Blackjack:getRewardSpace()
   return -1, 1
 end
 
@@ -63,7 +63,7 @@ function Blackjack:start()
 end
 
 -- Player stands or hits
-function Blackjack:step(action)
+function Blackjack:_step(action)
   local reward = 0
   local terminal = false
 

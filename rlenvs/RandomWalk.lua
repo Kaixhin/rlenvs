@@ -24,7 +24,7 @@ function RandomWalk:getActionSpace()
 end
 
 -- Min and max reward
-function RandomWalk:rewardSpace()
+function RandomWalk:getRewardSpace()
   return 0, 1
 end
 
@@ -36,7 +36,7 @@ function RandomWalk:start()
 end
 
 -- Move left or right
-function RandomWalk:step(action)
+function RandomWalk:_step(action)
   local reward = 0
   local terminal = false
 

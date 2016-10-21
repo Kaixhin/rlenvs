@@ -51,7 +51,7 @@ function DynaMaze:getActionSpace()
 end
 
 -- Min and max reward
-function DynaMaze:rewardSpace()
+function DynaMaze:getRewardSpace()
   return 0, 1
 end
 
@@ -67,7 +67,7 @@ function DynaMaze:start()
 end
 
 -- Move up, right, down or left
-function DynaMaze:step(action)
+function DynaMaze:_step(action)
   action = action + 1 -- scale action
   local reward = 0
   local terminal = false

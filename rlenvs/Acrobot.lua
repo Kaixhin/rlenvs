@@ -49,7 +49,7 @@ function Acrobot:getActionSpace()
 end
 
 -- Min and max reward
-function Acrobot:rewardSpace()
+function Acrobot:getRewardSpace()
   return -1, 0
 end
 
@@ -65,7 +65,7 @@ function Acrobot:start()
 end
 
 -- Swings the pole via torque on second joint
-function Acrobot:step(action)
+function Acrobot:_step(action)
   action = action - 1 -- rescale the action
   local reward = -1
   local terminal = false

@@ -47,6 +47,10 @@ local observation = env:start()
 
 **Note that the API is under development and may be subject to change**
 
+### rlenvs.envs
+
+A table of all possible environments implemented in rlenvs.
+
 ### observation = env:start([opts])
 
 Starts a new episode in the environment and returns the first `observation`. May take `opts`.
@@ -71,7 +75,7 @@ If several states are returned, `stateSpec` is itself a list of state specificat
 
 Returns an action specification, with the same structure as used for state specifications.
 
-### minReward, maxReward = env:rewardSpace()
+### minReward, maxReward = env:getRewardSpace()
 
 Returns the minimum and maximum rewards produced by the environment. Values may be `nil` if unknown.
 

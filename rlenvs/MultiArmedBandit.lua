@@ -32,7 +32,7 @@ function MultiArmedBandit:getActionSpace()
 end
 
 -- Min and max rewards unknown when sampling from distributions
-function MultiArmedBandit:rewardSpace()
+function MultiArmedBandit:getRewardSpace()
   return nil, nil
 end
 
@@ -42,7 +42,7 @@ function MultiArmedBandit:start()
 end
 
 -- Pulls an arm
-function MultiArmedBandit:step(action)
+function MultiArmedBandit:_step(action)
   action = action + 1 -- scale action
   -- Sample for reward
   local reward = torch.normal(self.armMeans[action], 1)

@@ -40,7 +40,7 @@ function WindyWorld:getActionSpace()
 end
 
 -- Min and max reward
-function WindyWorld:rewardSpace()
+function WindyWorld:getRewardSpace()
   return -1, -1
 end
 
@@ -52,7 +52,7 @@ function WindyWorld:start()
 end
 
 -- Move up, right, down or left
-function WindyWorld:step(action)
+function WindyWorld:_step(action)
   action = action + 1 -- scale action
   local terminal = false
 

@@ -43,7 +43,7 @@ function GridWorld:getActionSpace()
 end
 
 -- Min and max reward
-function GridWorld:rewardSpace()
+function GridWorld:getRewardSpace()
   return torch.min(self.world), 0
 end
 
@@ -55,7 +55,7 @@ function GridWorld:start()
 end
 
 -- Move up, right, down or left
-function GridWorld:step(action)
+function GridWorld:_step(action)
   action = action + 1 -- scale action
   local terminal = false
 

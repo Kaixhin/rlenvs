@@ -5,6 +5,7 @@ local MultiArmedBandit, super = classic.class('MultiArmedBandit', Env)
 -- Constructor
 function MultiArmedBandit:_init(opts)
   opts = opts or {}
+  super._init(self, opts)
 
   -- Restless bandits (with a Gaussian random walk)
   self.restless = opts.restless or false
@@ -37,7 +38,7 @@ function MultiArmedBandit:getRewardSpace()
 end
 
 -- Does nothing (distributions do not reset)
-function MultiArmedBandit:start()
+function MultiArmedBandit:_start()
   return nil
 end
 

@@ -7,6 +7,8 @@ local Blackjack, super = classic.class('Blackjack', Env)
 function Blackjack:_init(opts)
   opts = opts or {}
 
+  super._init(self, opts)
+
   -- Create number-only suit
   self.suit = torch.Tensor({2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11})
 end
@@ -43,7 +45,7 @@ function Blackjack:getRewardSpace()
 end
 
 -- Draw 2 cards for player and dealer
-function Blackjack:start()
+function Blackjack:_start()
   -- Shuffle deck
   self.deck = torch.cat({self.suit, self.suit, self.suit, self.suit}, 1):index(1, torch.randperm(52):long())
 

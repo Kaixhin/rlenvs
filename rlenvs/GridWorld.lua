@@ -6,6 +6,7 @@ local GridWorld, super = classic.class('GridWorld', Env)
 -- Constructor
 function GridWorld:_init(opts)
   opts = opts or {}
+  super._init(self, opts)
 
   -- Cost of moving in world (discretized)
   self.world = torch.Tensor(101, 101):fill(-0.5)
@@ -48,7 +49,7 @@ function GridWorld:getRewardSpace()
 end
 
 -- Reset position
-function GridWorld:start()
+function GridWorld:_start()
   self.position = {0.2, 0.4}
 
   return self.position

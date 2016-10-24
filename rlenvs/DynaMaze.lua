@@ -5,6 +5,7 @@ local DynaMaze, super = classic.class('DynaMaze', Env)
 -- Constructor
 function DynaMaze:_init(opts)
   opts = opts or {}
+  super._init(self, opts)
 
   -- Set change: none|blocking|shortcut
   self.change = opts.change or 'none'
@@ -56,7 +57,7 @@ function DynaMaze:getRewardSpace()
 end
 
 -- Reset position
-function DynaMaze:start()
+function DynaMaze:_start()
   if self.change == 'none' then
     self.position = {1, 4}
   else

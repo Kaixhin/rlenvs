@@ -6,11 +6,15 @@ if not hasALEWrap then
 end
 
 local Atari, super = classic.class('Atari', Env)
+Atari.timeStepLimit = 100000
 
 -- Constructor
 function Atari:_init(opts)
   -- Create ALEWrap options from opts
   opts = opts or {}
+  opts.timeStepLimit = Atari.timeStepLimit
+  super._init(self, opts)
+
   if opts.lifeLossTerminal == nil then
     opts.lifeLossTerminal = true
   end
@@ -76,7 +80,7 @@ function Atari:getRewardSpace()
 end
 
 -- Starts a new game, possibly with a random number of no-ops
-function Atari:start()
+function Atari:_start()
   local screen, reward, terminal
   
   if self.gameEnv._random_starts > 0 then

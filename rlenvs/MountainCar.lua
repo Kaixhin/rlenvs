@@ -1,10 +1,14 @@
 local classic = require 'classic'
 
 local MountainCar, super = classic.class('MountainCar', Env)
+MountainCar.timeStepLimit = 200
 
 -- Constructor
 function MountainCar:_init(opts)
   opts = opts or {}
+  opts.timeStepLimit = MountainCar.timeStepLimit
+
+  super._init(self, opts)
 end
 
 -- 2 states returned, of type 'real', of dimensionality 1, with differing ranges
@@ -37,7 +41,7 @@ function MountainCar:getRewardSpace()
 end
 
 -- Resets the car
-function MountainCar:start()
+function MountainCar:_start()
   -- Reset position and velocity
   self.position = -0.5
   self.velocity = 0

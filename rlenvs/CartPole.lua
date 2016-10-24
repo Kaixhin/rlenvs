@@ -1,11 +1,14 @@
 local classic = require 'classic'
 
 local CartPole, super = classic.class('CartPole', Env)
+CartPole.timeStepLimit = 200
 
 -- Constructor
 function CartPole:_init(opts)
   opts = opts or {}
-  
+  opts.timeStepLimit = CartPole.timeStepLimit
+  super._init(self, opts)
+
   -- Constants
   self.gravity = opts.gravity or 9.8
   self.cartMass = opts.cartMass or 1.0
@@ -52,7 +55,7 @@ function CartPole:getRewardSpace()
 end
 
 -- Resets the cart
-function CartPole:start()
+function CartPole:_start()
   -- Reset position, angle and velocities
   self.x = 0 -- Cart position (m)
   self.xDot = 0 -- Cart velocity

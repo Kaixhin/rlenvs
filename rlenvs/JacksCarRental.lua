@@ -19,6 +19,7 @@ end
 -- Constructor
 function JacksCarRental:_init(opts)
   opts = opts or {}
+  super._init(self, opts)
 end
 
 -- 2 states returned, of type 'int', of dimensionality 1, for 0-20 cars
@@ -51,7 +52,7 @@ function JacksCarRental:getRewardSpace()
 end
 
 -- Resets the cars to 10 at each lot
-function JacksCarRental:start()
+function JacksCarRental:_start()
   self.lot1 = 10
   self.lot2 = 10
 

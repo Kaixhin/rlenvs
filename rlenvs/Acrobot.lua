@@ -1,11 +1,14 @@
 local classic = require 'classic'
 
 local Acrobot, super = classic.class('Acrobot', Env)
+Acrobot.timeStepLimit = 500
 
 -- Constructor
 function Acrobot:_init(opts)
   opts = opts or {}
-  
+  opts.timeStepLimit = Acrobot.timeStepLimit
+  super._init(self, opts)
+
   -- Constants
   self.g = opts.g or 9.8
   self.m1 = opts.m1 or 1 -- Mass of link 1
@@ -54,7 +57,7 @@ function Acrobot:getRewardSpace()
 end
 
 -- Resets the cart
-function Acrobot:start()
+function Acrobot:_start()
   -- Reset angles and velocities
   self.q1 = 0 -- Joint 1 angle
   self.q2 = 0 -- Joint 2 angle

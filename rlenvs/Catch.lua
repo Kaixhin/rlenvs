@@ -5,6 +5,7 @@ local Catch, super = classic.class('Catch', Env)
 -- Constructor
 function Catch:_init(opts)
   opts = opts or {}
+  super._init(self, opts)
 
   -- Difficulty level
   self.level = opts.level or 2
@@ -76,7 +77,7 @@ function Catch:redraw()
 end
 
 -- Starts new game
-function Catch:start()
+function Catch:_start()
   -- Reset player and ball
   self.player.x = math.ceil(self.size / 2)
   self.ball.x = torch.random(self.size)

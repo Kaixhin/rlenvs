@@ -5,6 +5,7 @@ local WindyWorld, super = classic.class('WindyWorld', Env)
 -- Constructor
 function WindyWorld:_init(opts)
   opts = opts or {}
+  super._init(self, opts)
 
   -- Allow king's moves (8 directions)
   self.king = opts.king or false
@@ -45,7 +46,7 @@ function WindyWorld:getRewardSpace()
 end
 
 -- Reset position
-function WindyWorld:start()
+function WindyWorld:_start()
   self.position = {1, 4}
 
   return self.position

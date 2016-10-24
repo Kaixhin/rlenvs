@@ -12,10 +12,14 @@ local classic = require 'classic'
 --]]
 
 local Taxi, super = classic.class('Taxi', Env)
+Taxi.timeStepLimit = 200
 
 -- Constructor
 function Taxi:_init(opts)
   opts = opts or {}
+  opts.timeStepLimit = Taxi.timeStepLimit
+
+  super._init(self, opts)
 
   -- Passenger positions (Red, Green, Blue, Yellow)
   self.rgbyPos = {{0, 4}, {4, 4}, {3, 0}, {0, 0}}
@@ -59,7 +63,7 @@ function Taxi:getRewardSpace()
 end
 
 -- Reset position, fuel and passenger
-function Taxi:start()
+function Taxi:_start()
   -- Randomise position and fuel
   self.position = {torch.random(0, 4), torch.random(0, 4)}
   self.fuel = torch.random(5, 12)

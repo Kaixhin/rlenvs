@@ -5,6 +5,7 @@ local CliffWalking, super = classic.class('CliffWalking', Env)
 -- Constructor
 function CliffWalking:_init(opts)
   opts = opts or {}
+  super._init(self, opts)
 end
 
 -- 2 states returned, of type 'int', of dimensionality 1, where x is 1-12 and y is 1-4
@@ -37,7 +38,7 @@ function CliffWalking:getRewardSpace()
 end
 
 -- Reset position
-function CliffWalking:start()
+function CliffWalking:_start()
   self.position = {1, 1}
 
   return self.position

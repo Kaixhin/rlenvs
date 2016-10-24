@@ -5,6 +5,7 @@ local RandomWalk, super = classic.class('RandomWalk', Env)
 -- Constructor
 function RandomWalk:_init(opts)
   opts = opts or {}
+  super._init(self, opts)
 end
 
 -- 1 states returned, of type 'int', of dimensionality 1, between 0 and 6 (the terminal states)
@@ -29,7 +30,7 @@ function RandomWalk:getRewardSpace()
 end
 
 -- Reset position
-function RandomWalk:start()
+function RandomWalk:_start()
   self.position = 3
 
   return self.position

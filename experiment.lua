@@ -1,11 +1,8 @@
-local image = require 'image'
 require 'rlenvs'
 local Catch = require('rlenvs.Catch')
--- Detect QT for image display
-local qt = pcall(require, 'qt')
 
 -- Initialise and start environment
-local env = Catch({level = 2})
+local env = Catch({level = 2, render = true})
 local getActionSpace = env:getActionSpace()
 local observation = env:start()
 
@@ -14,7 +11,7 @@ local episodes, totalReward = 0, 0
 local nEpisodes = 1000
 
 -- Display
-local window = qt and image.display({image=observation, zoom=10})
+env:render()
 
 for i = 1, nEpisodes do
   while not terminal do
@@ -24,9 +21,7 @@ for i = 1, nEpisodes do
     totalReward = totalReward + reward
 
     -- Display
-    if qt then
-        image.display({image=observation, zoom=10, win=window})
-    end
+    env:render()
   end
 
   episodes = episodes + 1

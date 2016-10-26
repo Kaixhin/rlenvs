@@ -23,6 +23,7 @@ function Env:_init(opts)
         require 'image' self.qt = pcall(require, 'qt')
         if not self.qt then print('Was not able to load qt to render, are you using qlua to run the script?') end
     end
+    self.zoom = opts.zoom or 1
     self.currentStep = 1
 end
 
@@ -44,8 +45,8 @@ end
 
 function Env:render()
     if self.qt and self.getDisplay then
-        self.window = self.window == nil and image.display({ image = self:getDisplay(), zoom = 10 }) or self.window
-        image.display({ image = self:getDisplay(), zoom = 10, win = self.window })
+        self.window = self.window == nil and image.display({ image = self:getDisplay(), zoom = self.zoom }) or self.window
+        image.display({ image = self:getDisplay(), zoom = self.zoom, win = self.window })
     end
 end
 

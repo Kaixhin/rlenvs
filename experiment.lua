@@ -2,7 +2,7 @@ require 'rlenvs'
 local Catch = require('rlenvs.Catch')
 
 -- Initialise and start environment
-local env = Catch({level = 2, render = true})
+local env = Catch({level = 2, render = true, zoom = 10})
 local getActionSpace = env:getActionSpace()
 local observation = env:start()
 

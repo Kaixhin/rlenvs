@@ -3,7 +3,7 @@ local Catch = require('rlenvs.Catch')
 
 -- Initialise and start environment
 local env = Catch({level = 2, render = true, zoom = 10})
-local getActionSpace = env:getActionSpace()
+local actionSpace = env:getActionSpace()
 local observation = env:start()
 
 local reward, terminal = 0, false
@@ -16,7 +16,7 @@ env:render()
 for i = 1, nEpisodes do
   while not terminal do
     -- Pick random action and execute it
-    local action = torch.random(0, getActionSpace['n'] - 1)
+    local action = torch.random(0, actionSpace['n'] - 1)
     reward, observation, terminal = env:step(action)
     totalReward = totalReward + reward
 

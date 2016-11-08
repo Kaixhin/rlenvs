@@ -40,5 +40,6 @@ build = {
     ["rlenvs.RandomWalk"] = "rlenvs/RandomWalk.lua",
     ["rlenvs.Taxi"] = "rlenvs/Taxi.lua",
     ["rlenvs.WindyWorld"] = "rlenvs/WindyWorld.lua"
+    ["rlenvs.XOWorld"] = "rlenvs/XOWorld.lua"
   }
 }

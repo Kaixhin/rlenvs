@@ -16,6 +16,7 @@ Reinforcement learning environments for Torch7, inspired by RL-Glue [[1]](#refer
 - rlenvs.RandomWalk [[13]](#references)
 - rlenvs.Taxi [[14]](#references)
 - rlenvs.WindyWorld [[7]](#references)
+- rlenvs.XOWorld [[15]](#references)
 
 Run `th experiment.lua` (or `qlua experiment.lua`) to run a demo of a random agent playing Catch.
 
@@ -115,3 +116,4 @@ Environments must inherit from `Env` and therefore implement the above methods (
 [12] Whittle, P. (1988). Restless bandits: Activity allocation in a changing world. *Journal of applied probability*, 287-298.  
 [13] Sutton, R. S. (1988). Learning to predict by the methods of temporal differences. *Machine learning, 3*(1), 9-44.  
 [14] Dietterich, T. G. (2000). Hierarchical Reinforcement Learning with the MAXQ Value Function Decomposition. In *Journal of Artificial Intelligence Research*.  
+[15] Garnelo, M., Arulkumaran, K., & Shanahan, M. (2016). Towards Deep Symbolic Reinforcement Learning. *arXiv preprint arXiv:1609.05518*.  

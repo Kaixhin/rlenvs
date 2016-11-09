@@ -6,6 +6,7 @@ local XOWorld, super = classic.class('XOWorld', Env)
 -- Constructor
 function XOWorld:_init(opts)
   opts = opts or {}
+  super._init(self, opts)
 
   -- Game mode (all circles, negative, or circles and crosses, negative and positive)
   self.double = opts.double or false

@@ -106,7 +106,7 @@ end
 function XOWorld:getStateSpace()
     local state = {}
     state['name'] = 'Box'
-    state['shape'] = {3, self.size, self.size}
+    state['shape'] = {1, self.size, self.size}
     state['low'] = {
         0
     }

@@ -44,7 +44,7 @@ Requires a [supported](https://github.com/Kaixhin/Atari/blob/master/roms/README.
 luarocks install luasocket
 ```
 
-Requires [Minecraft](https://minecraft.net/en/) and [Malmö](https://github.com/Microsoft/malmo) to run.
+Requires [Malmö](https://github.com/Microsoft/malmo) (includes Minecraft) to run. The Malmö client must be running.
 
 ## Usage
 

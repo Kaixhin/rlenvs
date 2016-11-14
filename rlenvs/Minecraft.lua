@@ -130,14 +130,6 @@ function Minecraft:getRewardSpec()
   return nil, nil
 end
 
-function Minecraft:getDisplaySpec()
-  return {'real', {3, self.height, self.width}, {0, 1}}
-end
-
-function Minecraft:getDisplay()
-  return {'real', {3, self.height, self.width}, {0, 1}} -- TODO: Fix
-end
-
 -- process video input from the world
 function Minecraft:processFrames(world_video_frames)
   local proc_frames = {}
@@ -181,7 +173,7 @@ function Minecraft:start()
   -- Set the time limit for mission (in seconds)
   mission:timeLimitInSeconds(self.time_limit)
 
-  local status, err = pcall( function() self.agent_host:startMission( mission, mission_record ) end )
+  local status, err = pcall(function() self.agent_host:startMission( mission, mission_record ) end)
   if not status then
     print("Error starting mission: "..err)
     os.exit(1)
@@ -206,17 +198,18 @@ function Minecraft:start()
     print("Error: "..error.text)
   end
 
-  local proc_frames = self:processFrames(world_state.video_frames)
+  -- Reset proc_frames
+  self.proc_frames = self:processFrames(world_state.video_frames)
 
-  while #proc_frames < 1 do
+  while #self.proc_frames < 1 do
     sleep(0.1)
     world_state = self.agent_host:peekWorldState()
-    proc_frames = self:processFrames(world_state.video_frames)
+    self.proc_frames = self:processFrames(world_state.video_frames)
   end
 
   sleep(0.1)
 
-  return proc_frames[1]
+  return self.proc_frames[1]
 end
 
 -- Move up, right, down or left
@@ -243,26 +236,19 @@ function Minecraft:step(action)
 
   local reward = rewards[1]
 
-  local proc_frames = self:processFrames(world_state.video_frames)
+  self.proc_frames = self:processFrames(world_state.video_frames)
 
-  while #proc_frames < 1 do
+  while #self.proc_frames < 1 do
     sleep(0.1)
     world_state = self.agent_host:peekWorldState()
-    proc_frames = self:processFrames(world_state.video_frames)
+    self.proc_frames = self:processFrames(world_state.video_frames)
   end
 
-  local state = proc_frames[1]
-
-  local terminal
-  if not world_state.is_mission_running then
-    terminal = true
-  else
-    terminal = false
-  end
+  local terminal = world_state.is_mission_running
 
   sleep(0.1)
 
-  return reward, state, terminal
+  return reward, self.proc_frames[1], terminal
 end
 
 return Minecraft

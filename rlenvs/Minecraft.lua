@@ -1,15 +1,12 @@
-local hasSocket, socket = pcall(require, 'socket')
-if not hasSocket then
-  print("Requires luasocket (luarocks install luasocket)")
-  os.exit()
-end
-local hasLibMalmoLua, libMalmoLua = pcall(require, 'libMalmoLua')
-if not hasLibMalmoLua then
-  print("Requires libMalmoLua.so in the same folder")
-  os.exit()
-end
 local classic = require 'classic'
 local image = require 'image'
+-- Do not install if luasocket missing
+local hasSocket, socket = pcall(require, 'socket')
+if not hasSocket then
+  return nil
+end
+-- Install without libMalmoLua, check at runtime
+local hasLibMalmoLua, libMalmoLua = pcall(require, 'libMalmoLua')
 
 local Minecraft, super = classic.class('Minecraft', Env)
 
@@ -19,8 +16,12 @@ end
 
 -- Constructor
 function Minecraft:_init(opts)
-  self.opts = opts or {}
+  if not hasLibMalmoLua then
+    print("Requires libMalmoLua.so in the same folder")
+    os.exit()
+  end
 
+  self.opts = opts or {}
   self.height = opts.height or 84
   self.width = opts.width or 84
 
@@ -31,14 +32,14 @@ function Minecraft:_init(opts)
   </About>
 
   <ServerSection>
-      <ServerInitialConditions>
-        <Time>
-          <StartTime>6000</StartTime>
-          <AllowPassageOfTime>false</AllowPassageOfTime>
-        </Time>
-        <Weather>clear</Weather>
-        <AllowSpawning>false</AllowSpawning>
-       </ServerInitialConditions>
+    <ServerInitialConditions>
+      <Time>
+        <StartTime>6000</StartTime>
+        <AllowPassageOfTime>false</AllowPassageOfTime>
+      </Time>
+      <Weather>clear</Weather>
+      <AllowSpawning>false</AllowSpawning>
+    </ServerInitialConditions>
     <ServerHandlers>
       <FlatWorldGenerator generatorString="3;7,220*1,5*3,2;3;,biome_1" />
       <ClassroomDecorator seed="__SEED__">
@@ -67,7 +68,7 @@ function Minecraft:_init(opts)
           <hintLikelihood>1</hintLikelihood>
         </specification>
       </ClassroomDecorator>
-      <ServerQuitFromTimeUp timeLimitMs="30000" description="out_of_time"/>
+      <ServerQuitFromTimeUp timeLimitMs="30000" description="out_of_time" />
       <ServerQuitWhenAnyAgentFinishes />
     </ServerHandlers>
   </ServerSection>
@@ -75,7 +76,7 @@ function Minecraft:_init(opts)
   <AgentSection mode="Survival">
     <Name>James Bond</Name>
     <AgentStart>
-      <Placement x="-203.5" y="81.0" z="217.5"/>
+      <Placement x="-203.5" y="81.0" z="217.5" />
     </AgentStart>
     <AgentHandlers>
       <VideoProducer want_depth="false">
@@ -87,7 +88,7 @@ function Minecraft:_init(opts)
         <ModifierList type="deny-list">
           <command>attack</command>
         </ModifierList>
-      </ContinuousMovementCommands >
+      </ContinuousMovementCommands>
       <RewardForSendingCommand reward="0" />
       <RewardForMissionEnd>
         <Reward description="found_goal" reward="100" />
@@ -109,26 +110,21 @@ function Minecraft:_init(opts)
 
   self.agent_host = AgentHost()
 
-  -- load mission XML from provided file
+  -- Load mission XML from provided file
   if opts.mission_xml then
     print("Loading mission XML from: " .. self.mission_xml)
     local f = assert(io.open(self.mission_xml, "r"), "Error loading mission")
     self.mission_xml = f:read("*a")
   end
-
 end
 
 -- 2 states returned, of type 'real', of dimensionality 1, from 0-1
 function Minecraft:getStateSpec()
-  local stateSpec = {'real', {3, self.height, self.width}, {0, 1}}
-
-  return stateSpec
+  return {'real', {3, self.height, self.width}, {0, 1}}
 end
 
 function Minecraft:getActionSpec()
-  local actionSpec = {'int', 1, {1, #self.actions}}
-
-  return actionSpec
+  return {'int', 1, {1, #self.actions}}
 end
 
 -- Min and max reward
@@ -137,35 +133,28 @@ function Minecraft:getRewardSpec()
 end
 
 function Minecraft:getDisplaySpec()
-  local displaySpec = {'real', {3, self.height, self.width}, {0, 1}}
-
-  return displaySpec
+  return {'real', {3, self.height, self.width}, {0, 1}}
 end
 
 function Minecraft:getDisplay()
-  local display = {'real', {3, self.height, self.width}, {0, 1}}
-
-  return display
+  return {'real', {3, self.height, self.width}, {0, 1}} -- TODO: Fix
 end
 
 -- process video input from the world
 function Minecraft:processFrames(world_video_frames)
-
   local proc_frames = {}
 
   for frame in world_video_frames do
     local ti = torch.FloatTensor(3, self.height, self.width)
     getTorchTensorFromPixels(frame, tonumber(torch.cdata(ti, true)))
-    ti = torch.div(ti, 255)
+    ti:div(255)
     table.insert(proc_frames, ti)
   end
 
   return proc_frames
-
 end
 
 function Minecraft:getRewards(world_rewards)
-
   local proc_rewards = {}
 
   for reward in world_rewards do
@@ -173,39 +162,37 @@ function Minecraft:getRewards(world_rewards)
   end
 
   return proc_rewards
-
 end
 
 -- Reset position
 function Minecraft:start()
-
   local mission = MissionSpec(self.mission_xml, true)
   local mission_record = MissionRecordSpec()
 
-  -- request video
+  -- Request video
   mission:requestVideo(self.height, self.width)
 
-  -- channels, height, width of input frames
+  -- Channels, height, width of input frames
   local channels = mission:getVideoChannels(0)
   local height = mission:getVideoHeight(0)
   local width = mission:getVideoWidth(0)
 
-  assert(channels == 3, "No RGB video output!")
-  assert(height == self.height or width == self.width, "Video output dimensions don't match those requested!")
+  assert(channels == 3, "No RGB video output")
+  assert(height == self.height or width == self.width, "Video output dimensions don't match those requested")
 
-  -- set the time limit for mission (in seconds)
+  -- Set the time limit for mission (in seconds)
   mission:timeLimitInSeconds(self.time_limit)
 
   local status, err = pcall( function() self.agent_host:startMission( mission, mission_record ) end )
   if not status then
-    print( "Error starting mission: "..err )
+    print("Error starting mission: "..err)
     os.exit(1)
   end
 
-  io.write( "Waiting for mission to start" )
+  io.write("Waiting for mission to start")
   local world_state = self.agent_host:getWorldState()
   while not world_state.has_mission_begun do
-    io.write( "." )
+    io.write(".")
     io.flush()
     sleep(0.1)
     world_state = self.agent_host:getWorldState()
@@ -213,9 +200,7 @@ function Minecraft:start()
       print("Error: "..error.text)
     end
   end
-  io.write( "\n" )
-
-  local proc_frames
+  io.write("\n")
 
   local world_state = self.agent_host:getWorldState()
 
@@ -223,7 +208,7 @@ function Minecraft:start()
     print("Error: "..error.text)
   end
 
-  proc_frames = self:processFrames(world_state.video_frames)
+  local proc_frames = self:processFrames(world_state.video_frames)
 
   while #proc_frames < 1 do
     sleep(0.1)
@@ -231,30 +216,27 @@ function Minecraft:start()
     proc_frames = self:processFrames(world_state.video_frames)
   end
 
-  local state = proc_frames[1]
-
   sleep(0.1)
 
-  return state
+  return proc_frames[1]
 end
 
 -- Move up, right, down or left
 function Minecraft:step(action)
-
-  -- do something
+  -- Do something
   local action = self.actions[action]
   self.agent_host:sendCommand(action)
 
-  -- wait for world state to change
+  -- Wait for world state to change
   sleep(0.1)
 
-  -- check the world state
+  -- Check the world state
   local world_state = self.agent_host:peekWorldState()
 
-  -- try to receive a reward
+  -- Try to receive a reward
   local rewards = self:getRewards(world_state.rewards)
 
-  -- if no reward received yet, keep trying
+  -- If no reward received yet, keep trying
   while #rewards < 1 do
     sleep(0.1)
     world_state = self.agent_host:peekWorldState()
@@ -263,9 +245,7 @@ function Minecraft:step(action)
 
   local reward = rewards[1]
 
-  local proc_frames
-
-  proc_frames = self:processFrames(world_state.video_frames)
+  local proc_frames = self:processFrames(world_state.video_frames)
 
   while #proc_frames < 1 do
     sleep(0.1)

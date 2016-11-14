@@ -35,6 +35,7 @@ build = {
     ["rlenvs.DynaMaze"] = "rlenvs/DynaMaze.lua",
     ["rlenvs.GridWorld"] = "rlenvs/GridWorld.lua",
     ["rlenvs.JacksCarRental"] = "rlenvs/JacksCarRental.lua",
+    ["rlenvs.Minecraft"] = "rlenvs/Minecraft.lua"
     ["rlenvs.MountainCar"] = "rlenvs/MountainCar.lua",
     ["rlenvs.MultiArmedBandit"] = "rlenvs/MultiArmedBandit.lua",
     ["rlenvs.RandomWalk"] = "rlenvs/RandomWalk.lua",

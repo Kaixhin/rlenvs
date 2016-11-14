@@ -11,7 +11,7 @@ Reinforcement learning environments for Torch7, inspired by RL-Glue [[1]](#refer
 - rlenvs.DynaMaze [[8]](#references)
 - rlenvs.GridWorld [[9]](#references)
 - rlenvs.JacksCarRental [[7]](#references)
-- rlenvs.Minecraft (Project Malmö) [[10]](#references)
+- rlenvs.Minecraft (Project Malmö)\* [[10]](#references)
 - rlenvs.MountainCar [[11]](#references)
 - rlenvs.MultiArmedBandit [[12, 13]](#references)
 - rlenvs.RandomWalk [[14]](#references)
@@ -40,7 +40,11 @@ Requires an [Atari ROM](http://www.atarimania.com/rom_collection_archive_atari_2
 
 #### Minecraft Dependencies
 
-No installation dependencies. Requires [Minecraft](https://minecraft.net/en/) and [Malmö](https://github.com/Microsoft/malmo) to run.
+```sh
+luarocks install luasocket
+```
+
+Requires [Minecraft](https://minecraft.net/en/) and [Malmö](https://github.com/Microsoft/malmo) to run.
 
 ## Usage
 

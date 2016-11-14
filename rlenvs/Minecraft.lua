@@ -83,11 +83,11 @@ function Minecraft:_init(opts)
         <Height>160</Height>
       </VideoProducer>
       <ObservationFromFullStats />
-      <DiscreteMovementCommands>
+      <ContinuousMovementCommands turnSpeedDegs="180">
         <ModifierList type="deny-list">
           <command>attack</command>
         </ModifierList>
-      </DiscreteMovementCommands >
+      </ContinuousMovementCommands >
       <RewardForSendingCommand reward="0" />
       <RewardForMissionEnd>
         <Reward description="found_goal" reward="100" />

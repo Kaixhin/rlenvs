@@ -1,5 +1,5 @@
 package = "rlenvs"
-version = "scm-1"
+version = "scm-2"
 
 source = {
   url = "git://github.com/Kaixhin/rlenvs.git",
@@ -35,10 +35,12 @@ build = {
     ["rlenvs.DynaMaze"] = "rlenvs/DynaMaze.lua",
     ["rlenvs.GridWorld"] = "rlenvs/GridWorld.lua",
     ["rlenvs.JacksCarRental"] = "rlenvs/JacksCarRental.lua",
+    ["rlenvs.Minecraft"] = "rlenvs/Minecraft.lua",
     ["rlenvs.MountainCar"] = "rlenvs/MountainCar.lua",
     ["rlenvs.MultiArmedBandit"] = "rlenvs/MultiArmedBandit.lua",
     ["rlenvs.RandomWalk"] = "rlenvs/RandomWalk.lua",
     ["rlenvs.Taxi"] = "rlenvs/Taxi.lua",
-    ["rlenvs.WindyWorld"] = "rlenvs/WindyWorld.lua"
+    ["rlenvs.WindyWorld"] = "rlenvs/WindyWorld.lua",
+    ["rlenvs.XOWorld"] = "rlenvs/XOWorld.lua"
   }
 }

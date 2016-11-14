@@ -22,7 +22,7 @@ function Minecraft:_init(opts)
     os.exit()
   end
   
-  self.opts = opts or {}
+  opts = opts or {}
   self.height = opts.height or 84
   self.width = opts.width or 84
 

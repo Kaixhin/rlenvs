@@ -23,7 +23,6 @@ function Minecraft:_init(opts)
 
   self.height = opts.height or 84
   self.width = opts.width or 84
-  self.histLen = opts.histLen or 1
 
   self.mission_xml = opts.mission_xml or [[<?xml version="1.0" encoding="UTF-8" ?>
 <Mission xmlns="http://ProjectMalmo.microsoft.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -110,10 +109,6 @@ function Minecraft:_init(opts)
 
   self.agent_host = AgentHost()
 
-  if self.histLen > 1 then
-    self.agent_host:setVideoPolicy("1")
-  end
-
   -- load mission XML from provided file
   if opts.mission_xml then
     print("Loading mission XML from: " .. self.mission_xml)
@@ -123,8 +118,9 @@ function Minecraft:_init(opts)
 
 end
 
+-- 2 states returned, of type 'real', of dimensionality 1, from 0-1
 function Minecraft:getStateSpec()
-  local stateSpec = {'real', {3*self.histLen, self.height, self.width}, {0, 1}}
+  local stateSpec = {'real', {3, self.height, self.width}, {0, 1}}
 
   return stateSpec
 end
@@ -135,6 +131,7 @@ function Minecraft:getActionSpec()
   return actionSpec
 end
 
+-- Min and max reward
 function Minecraft:getRewardSpec()
   return nil, nil
 end
@@ -164,18 +161,6 @@ function Minecraft:processFrames(world_video_frames)
   end
 
   return proc_frames
-
-end
-
-function Minecraft:assembleState(hist)
-
-  local state = torch.FloatTensor(self.histLen*3, self.height, self.width)
-
-  for i = 1, self.histLen do
-    state[{{(i-1)*3 + 1, i*3}, {}, {}}] = hist[i]
-  end
-
-  return state
 
 end
 
@@ -231,7 +216,6 @@ function Minecraft:start()
   io.write( "\n" )
 
   local proc_frames
-  local hist = {}
 
   local world_state = self.agent_host:getWorldState()
 
@@ -241,25 +225,20 @@ function Minecraft:start()
 
   proc_frames = self:processFrames(world_state.video_frames)
 
-  while #proc_frames < self.histLen do
+  while #proc_frames < 1 do
     sleep(0.1)
     world_state = self.agent_host:peekWorldState()
     proc_frames = self:processFrames(world_state.video_frames)
   end
 
-  -- store histLen number of frames in our frame history
-  for i = 1, self.histLen do
-    hist[i] = proc_frames[i]
-  end
-
-  -- assemble input frames into a state observation
-  local state = self:assembleState(hist)
+  local state = proc_frames[1]
 
   sleep(0.1)
 
   return state
 end
 
+-- Move up, right, down or left
 function Minecraft:step(action)
 
   -- do something
@@ -285,21 +264,16 @@ function Minecraft:step(action)
   local reward = rewards[1]
 
   local proc_frames
-  local hist = {}
 
   proc_frames = self:processFrames(world_state.video_frames)
 
-  while #proc_frames < self.histLen do
+  while #proc_frames < 1 do
     sleep(0.1)
     world_state = self.agent_host:peekWorldState()
     proc_frames = self:processFrames(world_state.video_frames)
   end
 
-  for i = 1, self.histLen do
-    hist[i] = proc_frames[i]
-  end
-
-  local state = self:assembleState(hist)
+  local state = proc_frames[1]
 
   local terminal
   if not world_state.is_mission_running then

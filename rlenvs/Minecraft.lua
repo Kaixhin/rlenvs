@@ -5,8 +5,11 @@ local hasSocket, socket = pcall(require, 'socket')
 if not hasSocket then
   return nil
 end
--- Install without libMalmoLua, check at runtime
+-- Do not install if luasocket missing
 local hasLibMalmoLua, libMalmoLua = pcall(require, 'libMalmoLua')
+if not hasLibMalmoLua then
+  return nil
+end
 
 local Minecraft, super = classic.class('Minecraft', Env)
 
@@ -16,11 +19,6 @@ end
 
 -- Constructor
 function Minecraft:_init(opts)
-  if not hasLibMalmoLua then
-    print("Requires libMalmoLua.so in the same folder")
-    os.exit()
-  end
-
   self.opts = opts or {}
   self.height = opts.height or 84
   self.width = opts.width or 84

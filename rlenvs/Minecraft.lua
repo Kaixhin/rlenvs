@@ -24,7 +24,87 @@ function Minecraft:_init(opts)
   self.height = opts.height or 84
   self.width = opts.width or 84
   self.histLen = opts.histLen or 1
-  self.mission_xml = opts.mission_xml or "basic.xml"
+
+  self.mission_xml = opts.mission_xml or [[<?xml version="1.0" encoding="UTF-8" ?>
+<Mission xmlns="http://ProjectMalmo.microsoft.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <About>
+    <Summary>Find the goal!</Summary>
+  </About>
+
+  <ServerSection>
+      <ServerInitialConditions>
+        <Time>
+          <StartTime>6000</StartTime>
+          <AllowPassageOfTime>false</AllowPassageOfTime>
+        </Time>
+        <Weather>clear</Weather>
+        <AllowSpawning>false</AllowSpawning>
+       </ServerInitialConditions>
+    <ServerHandlers>
+      <FlatWorldGenerator generatorString="3;7,220*1,5*3,2;3;,biome_1" />
+      <ClassroomDecorator seed="__SEED__">
+        <specification>
+          <width>7</width>
+          <height>7</height>
+          <length>7</length>
+          <pathLength>0</pathLength>
+          <divisions>
+            <southNorth>0</southNorth>
+            <eastWest>0</eastWest>
+            <aboveBelow>0</aboveBelow>
+          </divisions>
+          <horizontalObstacles>
+            <gap>0</gap>
+            <bridge>0</bridge>
+            <door>0</door>
+            <puzzle>0</puzzle>
+            <jump>0</jump>
+          </horizontalObstacles>
+          <verticalObstacles>
+            <stairs>0</stairs>
+            <ladder>0</ladder>
+            <jump>0</jump>
+          </verticalObstacles>
+          <hintLikelihood>1</hintLikelihood>
+        </specification>
+      </ClassroomDecorator>
+      <ServerQuitFromTimeUp timeLimitMs="30000" description="out_of_time"/>
+      <ServerQuitWhenAnyAgentFinishes />
+    </ServerHandlers>
+  </ServerSection>
+
+  <AgentSection mode="Survival">
+    <Name>James Bond</Name>
+    <AgentStart>
+      <Placement x="-203.5" y="81.0" z="217.5"/>
+    </AgentStart>
+    <AgentHandlers>
+      <VideoProducer want_depth="false">
+        <Width>160</Width>
+        <Height>160</Height>
+      </VideoProducer>
+      <ObservationFromFullStats />
+      <DiscreteMovementCommands>
+        <ModifierList type="deny-list">
+          <command>attack</command>
+        </ModifierList>
+      </DiscreteMovementCommands >
+      <RewardForSendingCommand reward="0" />
+      <RewardForMissionEnd>
+        <Reward description="found_goal" reward="100" />
+        <Reward description="out_of_time" reward="-100" />
+      </RewardForMissionEnd>
+      <RewardForTouchingBlockType>
+        <Block type="gold_ore diamond_ore redstone_ore" reward="20" />
+      </RewardForTouchingBlockType>
+      <AgentQuitFromTouchingBlockType>
+        <Block type="gold_block diamond_block redstone_block" description="found_goal" />
+      </AgentQuitFromTouchingBlockType>
+    </AgentHandlers>
+  </AgentSection>
+</Mission>
+]]
+
   self.time_limit = opts.time_limit or 10
   self.actions = opts.actions or {"move 1", "move -1", "turn 1", "turn -1"}
 
@@ -34,13 +114,15 @@ function Minecraft:_init(opts)
     self.agent_host:setVideoPolicy("1")
   end
 
-  print("Loading mission XML from: " .. self.mission_xml)
-  local f = assert(io.open(self.mission_xml, "r"), "Error loading mission")
-  self.mission_xml = f:read("*a")
+  -- load mission XML from provided file
+  if opts.mission_xml then
+    print("Loading mission XML from: " .. self.mission_xml)
+    local f = assert(io.open(self.mission_xml, "r"), "Error loading mission")
+    self.mission_xml = f:read("*a")
+  end
 
 end
 
--- 2 states returned, of type 'real', of dimensionality 1, from 0-1
 function Minecraft:getStateSpec()
   local stateSpec = {'real', {3*self.histLen, self.height, self.width}, {0, 1}}
 
@@ -53,7 +135,6 @@ function Minecraft:getActionSpec()
   return actionSpec
 end
 
--- Min and max reward
 function Minecraft:getRewardSpec()
   return nil, nil
 end
@@ -173,13 +254,12 @@ function Minecraft:start()
 
   -- assemble input frames into a state observation
   local state = self:assembleState(hist)
-  
+
   sleep(0.1)
 
   return state
 end
 
--- Move up, right, down or left
 function Minecraft:step(action)
 
   -- do something
@@ -227,7 +307,7 @@ function Minecraft:step(action)
   else
     terminal = false
   end
-  
+
   sleep(0.1)
 
   return reward, state, terminal

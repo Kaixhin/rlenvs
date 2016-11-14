@@ -36,7 +36,7 @@ luarocks install https://raw.githubusercontent.com/lake4790k/xitari/master/xitar
 luarocks install https://raw.githubusercontent.com/Kaixhin/alewrap/master/alewrap-0-0.rockspec
 ```
 
-Requires an [Atari ROM](http://www.atarimania.com/rom_collection_archive_atari_2600_roms.html) to run.
+Requires a [supported](https://github.com/Kaixhin/Atari/blob/master/roms/README.md) Atari ROM to run.
 
 #### Minecraft Dependencies
 

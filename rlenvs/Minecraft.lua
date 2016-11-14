@@ -106,7 +106,6 @@ function Minecraft:_init(opts)
 </Mission>
 ]]
 
-  self.time_limit = opts.time_limit or 10
   self.actions = opts.actions or {"move 1", "move -1", "turn 1", "turn -1"}
 
   self.agent_host = AgentHost()
@@ -247,7 +246,7 @@ function Minecraft:step(action)
     self.proc_frames = self:processFrames(world_state.video_frames)
   end
 
-  local terminal = world_state.is_mission_running
+  local terminal = not world_state.is_mission_running
 
   sleep(0.1)
 

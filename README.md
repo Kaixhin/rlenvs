@@ -44,10 +44,11 @@ Requires a [supported](https://github.com/Kaixhin/Atari/blob/master/roms/README.
 luarocks install luasocket
 ```
 
-Requires [Malmö](https://github.com/Microsoft/malmo) (includes Minecraft), extracted with directory name `MalmoPlatform`. `libMalmoLua.so` should be added to `LUA_CPATH`. For example, if `MalmoPlatform` is in your home directory, add the following to the end of your `~/.bashrc`:
+Requires [Malmö](https://github.com/Microsoft/malmo) (includes Minecraft), extracted with directory name `MalmoPlatform`. `libMalmoLua.so` should be added to `LUA_CPATH`, and the level schemas should be exported to `MALMO_XSD_PATH`. For example, if `MalmoPlatform` is in `/home/username`, add the following to the end of your `~/.bashrc`:
 
 ```sh
-export LUA_CPATH=~/MalmoPlatform/Torch_Examples/libMalmoLua.so;$LUA_CPATH
+export LUA_CPATH='/home/username/MalmoPlatform/Torch_Examples/?.so;'$LUA_CPATH
+export MALMO_XSD_PATH=/home/username/MalmoPlatform
 ```
 
 The Malmö client (`launchClient.sh`) must be operating to run.

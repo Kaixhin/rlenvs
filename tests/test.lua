@@ -13,9 +13,8 @@ local function runTest(env)
     env:render()
 end
 
-
 for index, env in ipairs(rlenvs.envs) do
-    if env ~= 'Atari' then
+    if env ~= 'Atari' and env ~= 'Minecraft' then
         runTest(env)
     end
 end

@@ -6,11 +6,15 @@ if not hasALEWrap then
 end
 
 local Atari, super = classic.class('Atari', Env)
+Atari.timeStepLimit = 100000
 
 -- Constructor
 function Atari:_init(opts)
   -- Create ALEWrap options from opts
   opts = opts or {}
+  opts.timeStepLimit = Atari.timeStepLimit
+  super._init(self, opts)
+
   if opts.lifeLossTerminal == nil then
     opts.lifeLossTerminal = true
   end
@@ -44,13 +48,25 @@ function Atari:_init(opts)
 end
 
 -- 1 state returned, of type 'real', of dimensionality 3 x 210 x 160, between 0 and 1
-function Atari:getStateSpec()
-  return {'real', {3, 210, 160}, {0, 1}}
+function Atari:getStateSpace()
+  local state = {}
+  state['name'] = 'Box'
+  state['shape'] = {3, 210, 160}
+  state['low'] = {
+    0
+  }
+  state['high'] = {
+    1
+  }
+  return state
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 1 and 18 (max)
-function Atari:getActionSpec()
-  return {'int', 1, {1, #self.actions}}
+function Atari:getActionSpace()
+  local action = {}
+  action['name'] = 'Discrete'
+  action['n'] = #self.actions
+  return action
 end
 
 -- RGB screen of height 210 and width 160
@@ -59,12 +75,12 @@ function Atari:getDisplaySpec()
 end
 
 -- Min and max reward (unknown)
-function Atari:getRewardSpec()
+function Atari:getRewardSpace()
   return nil, nil
 end
 
 -- Starts a new game, possibly with a random number of no-ops
-function Atari:start()
+function Atari:_start()
   local screen, reward, terminal
   
   if self.gameEnv._random_starts > 0 then
@@ -77,7 +93,7 @@ function Atari:start()
 end
 
 -- Steps in a game
-function Atari:step(action)
+function Atari:_step(action)
   -- Map action index to action for game
   action = self.actions[action]
 

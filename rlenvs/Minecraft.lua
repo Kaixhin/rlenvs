@@ -16,6 +16,8 @@ end
 
 -- Constructor
 function Minecraft:_init(opts)
+  opts = opts or {}
+  super._init(self, opts)
   -- Check libaMalmoLua is available locally
   if not hasLibMalmoLua then
     print("Requires libMalmoLua.so in LUA_CPATH")
@@ -120,16 +122,28 @@ function Minecraft:_init(opts)
 end
 
 -- 2 states returned, of type 'real', of dimensionality 1, from 0-1
-function Minecraft:getStateSpec()
-  return {'real', {3, self.height, self.width}, {0, 1}}
+function Minecraft:getStateSpace()
+  local state = {}
+  state['name'] = 'Box'
+  state['shape'] = {3, self.height, self.width}
+  state['low'] = {
+    0
+  }
+  state['high'] = {
+    1
+  }
+  return state
 end
 
-function Minecraft:getActionSpec()
-  return {'int', 1, {1, #self.actions}}
+function Minecraft:getActionSpace()
+  local action = {}
+  action['name'] = 'Discrete'
+  action['n'] = #self.actions
+  return action
 end
 
--- Min and max reward
-function Minecraft:getRewardSpec()
+-- Min and max reward (unknown)
+function Minecraft:getRewardSpace()
   return nil, nil
 end
 
@@ -158,7 +172,7 @@ function Minecraft:getRewards(world_rewards)
 end
 
 -- Reset position
-function Minecraft:start()
+function Minecraft:_start()
   local mission = MissionSpec(self.mission_xml, true)
   local mission_record = MissionRecordSpec()
 
@@ -216,7 +230,7 @@ function Minecraft:start()
 end
 
 -- Move up, right, down or left
-function Minecraft:step(action)
+function Minecraft:_step(action)
   -- Do something
   local action = self.actions[action]
   self.agent_host:sendCommand(action)

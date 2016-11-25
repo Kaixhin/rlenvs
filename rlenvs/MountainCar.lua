@@ -1,32 +1,47 @@
 local classic = require 'classic'
 
 local MountainCar, super = classic.class('MountainCar', Env)
+MountainCar.timeStepLimit = 200
 
 -- Constructor
 function MountainCar:_init(opts)
   opts = opts or {}
+  opts.timeStepLimit = MountainCar.timeStepLimit
+
+  super._init(self, opts)
 end
 
 -- 2 states returned, of type 'real', of dimensionality 1, with differing ranges
-function MountainCar:getStateSpec()
-  return {
-    {'real', 1, {-0.07, 0.07}}, -- Velocity
-    {'real', 1, {-1.2, 0.6}} -- Position
+function MountainCar:getStateSpace()
+  local state = {}
+  state['name'] = 'Box'
+  state['shape'] = {2}
+  state['low'] = {
+    -0.07, -- Velocity
+    -1.2 -- Position
   }
+  state['high'] = {
+    0.07, -- Velocity
+    0.6 -- Position
+  }
+  return state
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between -1 and 1 (left, neutral, right)
-function MountainCar:getActionSpec()
-  return {'int', 1, {-1, 1}}
+function MountainCar:getActionSpace()
+  local action = {}
+  action['name'] = 'Discrete'
+  action['n'] = 3
+  return action
 end
 
 -- Min and max reward
-function MountainCar:getRewardSpec()
+function MountainCar:getRewardSpace()
   return -2, 0 -- As height = sin(3x) is between -1 and 1, and reward = height - 1
 end
 
 -- Resets the car
-function MountainCar:start()
+function MountainCar:_start()
   -- Reset position and velocity
   self.position = -0.5
   self.velocity = 0
@@ -35,7 +50,8 @@ function MountainCar:start()
 end
 
 -- Drives the car
-function MountainCar:step(action)
+function MountainCar:_step(action)
+  action = action - 1  -- scale action
   -- Calculate height
   local height = math.sin(3*self.position)
 

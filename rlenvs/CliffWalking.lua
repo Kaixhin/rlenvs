@@ -5,35 +5,48 @@ local CliffWalking, super = classic.class('CliffWalking', Env)
 -- Constructor
 function CliffWalking:_init(opts)
   opts = opts or {}
+  super._init(self, opts)
 end
 
 -- 2 states returned, of type 'int', of dimensionality 1, where x is 1-12 and y is 1-4
-function CliffWalking:getStateSpec()
-  return {
-    {'int', 1, {1, 12}}, -- x
-    {'int', 1, {1, 4}} -- y
+function CliffWalking:getStateSpace()
+  local state = {}
+  state['name'] = 'Box'
+  state['shape'] = {2}
+  state['low'] = {
+    1, -- x
+    1 -- y
   }
+  state['high'] = {
+    12, -- x
+    4 -- y
+  }
+  return state
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 1 and 4 (up|right|down|left)
-function CliffWalking:getActionSpec()
-  return {'int', 1, {1, 4}}
+function CliffWalking:getActionSpace()
+  local action = {}
+  action['name'] = 'Discrete'
+  action['n'] = 4
+  return action
 end
 
 -- Min and max reward
-function CliffWalking:getRewardSpec()
+function CliffWalking:getRewardSpace()
   return -100, -1
 end
 
 -- Reset position
-function CliffWalking:start()
+function CliffWalking:_start()
   self.position = {1, 1}
 
   return self.position
 end
 
 -- Move up, right, down or left
-function CliffWalking:step(action)
+function CliffWalking:_step(action)
+  action = action + 1 -- scale action
   local reward = -1
   local terminal = false
 

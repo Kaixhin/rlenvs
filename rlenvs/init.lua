@@ -1,7 +1,7 @@
 local rlenvs = {}
 
 -- Include environments
-rlenvs.Env = require 'rlenvs/Env'
+Env = require 'rlenvs/Env'
 rlenvs.Acrobot = require 'rlenvs/Acrobot'
 rlenvs.Atari = require 'rlenvs/Atari'
 rlenvs.Blackjack = require 'rlenvs/Blackjack'
@@ -24,5 +24,11 @@ for k, v in pairs(rlenvs) do
     rlenvs[k] = nil
   end
 end
+
+local envs ={}
+for k,_ in pairs(rlenvs) do
+  envs[#envs+1]=k
+end
+rlenvs.envs = envs
 
 return rlenvs

@@ -5,32 +5,39 @@ local RandomWalk, super = classic.class('RandomWalk', Env)
 -- Constructor
 function RandomWalk:_init(opts)
   opts = opts or {}
+  super._init(self, opts)
 end
 
 -- 1 states returned, of type 'int', of dimensionality 1, between 0 and 6 (the terminal states)
-function RandomWalk:getStateSpec()
-  return {'int', 1, {0, 6}} -- Position
+function RandomWalk:getStateSpace()
+  local state = {}
+  state['name'] = 'Discrete'
+  state['n'] = 6
+  return state
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 0 and 1 (left or right)
-function RandomWalk:getActionSpec()
-  return {'int', 1, {0, 1}}
+function RandomWalk:getActionSpace()
+  local action = {}
+  action['name'] = 'Discrete'
+  action['n'] = 2
+  return action
 end
 
 -- Min and max reward
-function RandomWalk:getRewardSpec()
+function RandomWalk:getRewardSpace()
   return 0, 1
 end
 
 -- Reset position
-function RandomWalk:start()
+function RandomWalk:_start()
   self.position = 3
 
   return self.position
 end
 
 -- Move left or right
-function RandomWalk:step(action)
+function RandomWalk:_step(action)
   local reward = 0
   local terminal = false
 

@@ -7,31 +7,45 @@ local Blackjack, super = classic.class('Blackjack', Env)
 function Blackjack:_init(opts)
   opts = opts or {}
 
+  super._init(self, opts)
+
   -- Create number-only suit
   self.suit = torch.Tensor({2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11})
 end
 
 -- 2 states returned, of type 'int', of dimensionality 1, for the player sum, dealer's showing card, and player-usable ace
-function Blackjack:getStateSpec()
-  return {
-    {'int', 1, {2, 20}},
-    {'int', 1, {1, 10}},
-    {'int', 1, {0, 1}}
+function Blackjack:getStateSpace()
+  local state = {}
+  state['name'] = 'Box'
+  state['shape'] = {3}
+  state['low'] = {
+    2,
+    1,
+    0
   }
+  state['high'] = {
+    20,
+    10,
+    1
+  }
+  return state
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, either stand or hit
-function Blackjack:getActionSpec()
-  return {'int', 1, {0, 1}}
+function Blackjack:getActionSpace()
+  local action = {}
+  action['name'] = 'Discrete'
+  action['n'] = 2
+  return action
 end
 
 -- Min and max reward
-function Blackjack:getRewardSpec()
+function Blackjack:getRewardSpace()
   return -1, 1
 end
 
 -- Draw 2 cards for player and dealer
-function Blackjack:start()
+function Blackjack:_start()
   -- Shuffle deck
   self.deck = torch.cat({self.suit, self.suit, self.suit, self.suit}, 1):index(1, torch.randperm(52):long())
 
@@ -51,7 +65,7 @@ function Blackjack:start()
 end
 
 -- Player stands or hits
-function Blackjack:step(action)
+function Blackjack:_step(action)
   local reward = 0
   local terminal = false
 

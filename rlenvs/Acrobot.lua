@@ -1,11 +1,14 @@
 local classic = require 'classic'
 
 local Acrobot, super = classic.class('Acrobot', Env)
+Acrobot.timeStepLimit = 500
 
 -- Constructor
 function Acrobot:_init(opts)
   opts = opts or {}
-  
+  opts.timeStepLimit = Acrobot.timeStepLimit
+  super._init(self, opts)
+
   -- Constants
   self.g = opts.g or 9.8
   self.m1 = opts.m1 or 1 -- Mass of link 1
@@ -21,27 +24,40 @@ function Acrobot:_init(opts)
 end
 
 -- 4 states returned, of type 'real', of dimensionality 1, with differing ranges
-function Acrobot:getStateSpec()
-  return {
-    {'real', 1, {-math.pi, math.pi}}, -- Joint 1 angle
-    {'real', 1, {-math.pi, math.pi}}, -- Joint 2 angle
-    {'real', 1, {-4*math.pi, 4*math.pi}}, -- Joint 1 angular velocity
-    {'real', 1, {-9*math.pi, 9*math.pi}} -- Joint 2 angular velocity
+function Acrobot:getStateSpace()
+  local state = {}
+  state['name'] = 'Box'
+  state['shape'] = {4}
+  state['low'] = {
+    -math.pi, -- Joint 1 angle
+    -math.pi, -- Joint 2 angle
+    -4*math.pi, -- Joint 1 angular velocity
+    -9*math.pi -- Joint 2 angular velocity
   }
+  state['high'] = {
+    math.pi, -- Joint 1 angle
+    math.pi, -- Joint 2 angle
+    4*math.pi, -- Joint 1 angular velocity
+    9*math.pi -- Joint 2 angular velocity
+  }
+  return state
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, with second torque joint in {-1, 0, 1}
-function Acrobot:getActionSpec()
-  return {'int', 1, {-1, 1}}
+function Acrobot:getActionSpace()
+  local action = {}
+  action['name'] = 'Discrete'
+  action['n'] = 3
+  return action
 end
 
 -- Min and max reward
-function Acrobot:getRewardSpec()
+function Acrobot:getRewardSpace()
   return -1, 0
 end
 
 -- Resets the cart
-function Acrobot:start()
+function Acrobot:_start()
   -- Reset angles and velocities
   self.q1 = 0 -- Joint 1 angle
   self.q2 = 0 -- Joint 2 angle
@@ -52,7 +68,8 @@ function Acrobot:start()
 end
 
 -- Swings the pole via torque on second joint
-function Acrobot:step(action)
+function Acrobot:_step(action)
+  action = action - 1 -- rescale the action
   local reward = -1
   local terminal = false
 

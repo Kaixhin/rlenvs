@@ -20,10 +20,10 @@ function Minecraft:_init(opts)
   super._init(self, opts)
   -- Check libaMalmoLua is available locally
   if not hasLibMalmoLua then
-    print("Requires libMalmoLua.so in LUA_CPATH")
+    print("Requires libMalmoLua.so")
     os.exit()
   end
-  
+
   opts = opts or {}
   self.height = opts.height or 84
   self.width = opts.width or 84
@@ -35,14 +35,14 @@ function Minecraft:_init(opts)
   </About>
 
   <ServerSection>
-    <ServerInitialConditions>
-      <Time>
-        <StartTime>6000</StartTime>
-        <AllowPassageOfTime>false</AllowPassageOfTime>
-      </Time>
-      <Weather>clear</Weather>
-      <AllowSpawning>false</AllowSpawning>
-    </ServerInitialConditions>
+      <ServerInitialConditions>
+        <Time>
+          <StartTime>6000</StartTime>
+          <AllowPassageOfTime>false</AllowPassageOfTime>
+        </Time>
+        <Weather>clear</Weather>
+        <AllowSpawning>false</AllowSpawning>
+       </ServerInitialConditions>
     <ServerHandlers>
       <FlatWorldGenerator generatorString="3;7,220*1,5*3,2;3;,biome_1" />
       <ClassroomDecorator seed="__SEED__">
@@ -71,7 +71,7 @@ function Minecraft:_init(opts)
           <hintLikelihood>1</hintLikelihood>
         </specification>
       </ClassroomDecorator>
-      <ServerQuitFromTimeUp timeLimitMs="30000" description="out_of_time" />
+      <ServerQuitFromTimeUp timeLimitMs="30000" description="out_of_time"/>
       <ServerQuitWhenAnyAgentFinishes />
     </ServerHandlers>
   </ServerSection>
@@ -79,12 +79,12 @@ function Minecraft:_init(opts)
   <AgentSection mode="Survival">
     <Name>James Bond</Name>
     <AgentStart>
-      <Placement x="-203.5" y="81.0" z="217.5" />
+      <Placement x="-203.5" y="81.0" z="217.5"/>
     </AgentStart>
     <AgentHandlers>
       <VideoProducer want_depth="false">
-        <Width>160</Width>
-        <Height>160</Height>
+        <Width>320</Width>
+        <Height>240</Height>
       </VideoProducer>
       <ObservationFromFullStats />
       <ContinuousMovementCommands turnSpeedDegs="180">
@@ -92,10 +92,11 @@ function Minecraft:_init(opts)
           <command>attack</command>
         </ModifierList>
       </ContinuousMovementCommands>
-      <RewardForSendingCommand reward="0" />
-      <RewardForMissionEnd>
-        <Reward description="found_goal" reward="100" />
-        <Reward description="out_of_time" reward="-100" />
+      <MissionQuitCommands quitDescription="give_up"/>
+      <RewardForSendingCommand reward="0"/>
+      <RewardForMissionEnd rewardForDeath="-10000">
+        <Reward description="found_goal" reward="1000" />
+        <Reward description="out_of_time" reward="-1000" />
       </RewardForMissionEnd>
       <RewardForTouchingBlockType>
         <Block type="gold_ore diamond_ore redstone_ore" reward="20" />
@@ -171,8 +172,16 @@ function Minecraft:getRewards(world_rewards)
   return proc_rewards
 end
 
--- Reset position
+-- Start new mission
 function Minecraft:_start()
+  local world_state = self.agent_host:getWorldState()
+
+  -- check if a previous mission is still running before starting a new one
+  if world_state.is_mission_running then
+	  self.agent_host:sendCommand("quit")
+	  sleep(0.5)
+  end
+
   local mission = MissionSpec(self.mission_xml, true)
   local mission_record = MissionRecordSpec()
 
@@ -186,9 +195,6 @@ function Minecraft:_start()
 
   assert(channels == 3, "No RGB video output")
   assert(height == self.height or width == self.width, "Video output dimensions don't match those requested")
-
-  -- Set the time limit for mission (in seconds)
-  mission:timeLimitInSeconds(self.time_limit)
 
   local status, err = pcall(function() self.agent_host:startMission( mission, mission_record ) end)
   if not status then
@@ -261,7 +267,7 @@ function Minecraft:_step(action)
     self.proc_frames = self:processFrames(world_state.video_frames)
   end
 
-  local terminal = world_state.is_mission_running
+  local terminal = not world_state.is_mission_running
 
   sleep(0.1)
 

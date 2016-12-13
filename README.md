@@ -73,11 +73,13 @@ A table of all environments available in `rlenvs`.
 
 ### observation = env:start([opts])
 
-Starts a new episode in the environment and returns the first `observation`. May take `opts`.
+Starts a new episode in the environment and returns the first `observation`. May take `opts`.  
+Note that environments must actually implement this as `_start`.
 
 ### reward, observation, terminal, [actionTaken] = env:step(action)
 
-Performs a step in the environment using `action` (which may be a list - see below), and returns the `reward`, the `observation` of the state transitioned to, and a `terminal` flag. Optionally provides `actionTaken`, if the environment provides supervision in the form of the actual action taken by the agent in spite of the provided action.
+Performs a step in the environment using `action` (which may be a list - see below), and returns the `reward`, the `observation` of the state transitioned to, and a `terminal` flag. Optionally provides `actionTaken`, if the environment provides supervision in the form of the actual action taken by the agent in spite of the provided action.  
+Note that environments must actually implement this as `_step`.
 
 ### stateSpace = env:getStateSpace()
 
@@ -118,6 +120,10 @@ Returns an RGB display specification, with the same structure as used for state 
 ### display = env:getDisplay()
 
 Returns a RGB display tensor for visualising the state of the environment. Note that this may not be the same as the state provided for the agent.
+
+### env:render()
+
+Displays the environment using `image`. Requires the code to be run with `qlua` (rather than `th`) and `getDisplay` to be implemented by the environment.
 
 ## Development
 

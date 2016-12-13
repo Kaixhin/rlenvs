@@ -71,9 +71,9 @@ function CartPole:_step(action)
   local force = action == 1 and self.forceMagnitude or -self.forceMagnitude
   local cosTheta = math.cos(self.theta)
   local sinTheta = math.sin(self.theta)
-  local temp = (force + 0.5*self.poleMassLength * math.pow(self.thetaDot, 2) * sinTheta) / self.totalMass
-  local thetaDotDot = (self.gravity * sinTheta - cosTheta * temp) / (0.5*self.poleLength * (4/3 - self.poleMass * math.pow(cosTheta, 2) / self.totalMass))
-  local xDotDot = temp - 0.5*self.poleMassLength * thetaDotDot * cosTheta / self.totalMass
+  local temp = (force + 0.5 * self.poleMassLength * math.pow(self.thetaDot, 2) * sinTheta) / self.totalMass
+  local thetaDotDot = (self.gravity * sinTheta - cosTheta * temp) / (0.5 * self.poleLength * (4 / 3 - self.poleMass * math.pow(cosTheta, 2) / self.totalMass))
+  local xDotDot = temp - 0.5 * self.poleMassLength * thetaDotDot * cosTheta / self.totalMass
 
   -- Update state using Euler's method
   self.x = self.x + self.tau * self.xDot

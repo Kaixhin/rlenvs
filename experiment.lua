@@ -1,5 +1,4 @@
-require 'rlenvs'
-local Catch = require('rlenvs.Catch')
+local Catch = require 'rlenvs.Catch'
 
 -- Initialise and start environment
 local env = Catch({level = 2, render = true, zoom = 10})

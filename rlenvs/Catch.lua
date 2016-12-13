@@ -1,4 +1,5 @@
 local classic = require 'classic'
+local Env = require 'rlenvs/Env'
 
 local Catch, super = classic.class('Catch', Env)
 

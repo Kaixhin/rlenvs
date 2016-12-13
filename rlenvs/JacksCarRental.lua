@@ -67,12 +67,12 @@ function JacksCarRental:_step(action)
   -- Customers rent cars from lot 1 during the day
   local lot1Rentals = math.min(poisson(3), self.lot1)
   self.lot1 = self.lot1 - lot1Rentals
-  reward = reward + 10*lot1Rentals
+  reward = reward + 10 * lot1Rentals
 
   -- Customers rent cars from lot 2 during the day
   local lot2Rentals = math.min(poisson(4), self.lot2)
   self.lot2 = self.lot2 - lot2Rentals
-  reward = reward + 10*lot2Rentals
+  reward = reward + 10 * lot2Rentals
 
   -- Customers return cars to lot 1 at the end of the day
   local lot1Returns = poisson(3)
@@ -90,14 +90,14 @@ function JacksCarRental:_step(action)
     -- Move cars
     self.lot1 = self.lot1 - carsMoved
     self.lot2 = self.lot2 + carsMoved
-    reward = reward - 2*carsMoved
+    reward = reward - 2 * carsMoved
   elseif action < 0 then -- Negative numbers indicate transferring cars from lot 2 to lot 1
     carsMoved = math.min(-action, self.lot2)
     carsMoved = math.min(carsMoved, 20 - self.lot1)
     -- Move cars
     self.lot2 = self.lot2 - carsMoved
     self.lot1 = self.lot1 + carsMoved
-    reward = reward - 2*carsMoved
+    reward = reward - 2 * carsMoved
   end
 
   return reward, {self.lot1, self.lot2}, false

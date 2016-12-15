@@ -1,10 +1,12 @@
 local classic = require 'classic'
+local Env = require 'rlenvs/Env'
 
 local Catch, super = classic.class('Catch', Env)
 
 -- Constructor
 function Catch:_init(opts)
   opts = opts or {}
+  super._init(self, opts)
 
   -- Difficulty level
   self.level = opts.level or 2
@@ -28,13 +30,25 @@ function Catch:_init(opts)
 end
 
 -- 1 state returned, of type 'int', of dimensionality 1 x self.size x self.size, between 0 and 1
-function Catch:getStateSpec()
-  return {'int', {1, self.size, self.size}, {0, 1}}
+function Catch:getStateSpace()
+  local state = {}
+  state['name'] = 'Box'
+  state['shape'] = {1, self.size, self.size}
+  state['low'] = {
+    0
+  }
+  state['high'] = {
+    1
+  }
+  return state
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 0 and 2
-function Catch:getActionSpec()
-  return {'int', 1, {0, 2}}
+function Catch:getActionSpace()
+  local action = {}
+  action['name'] = 'Discrete'
+  action['n'] = 3
+  return action
 end
 
 -- RGB screen of size self.size x self.size
@@ -43,7 +57,7 @@ function Catch:getDisplaySpec()
 end
 
 -- Min and max reward
-function Catch:getRewardSpec()
+function Catch:getRewardSpace()
   return 0, 1
 end
 
@@ -64,7 +78,7 @@ function Catch:redraw()
 end
 
 -- Starts new game
-function Catch:start()
+function Catch:_start()
   -- Reset player and ball
   self.player.x = math.ceil(self.size / 2)
   self.ball.x = torch.random(self.size)
@@ -80,7 +94,7 @@ function Catch:start()
 end
 
 -- Steps in a game
-function Catch:step(action)
+function Catch:_step(action)
   -- Reward is 0 by default
   local reward = 0
 

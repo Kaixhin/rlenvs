@@ -6,6 +6,7 @@ local GridWorld, super = classic.class('GridWorld', Env)
 -- Constructor
 function GridWorld:_init(opts)
   opts = opts or {}
+  super._init(self, opts)
 
   -- Cost of moving in world (discretized)
   self.world = torch.Tensor(101, 101):fill(-0.5)
@@ -13,38 +14,50 @@ function GridWorld:_init(opts)
   -- PuddleWorld
   if opts.puddles then
     -- Create 2D Gaussians to subtract from world
-    self.world[{{30, 90}, {30, 50}}]:csub(image.gaussian({width=21, height=61}))
-    self.world[{{60, 80}, {1, 50}}]:csub(image.gaussian({width=60, height=21})[{{}, {11, 60}}])
+    self.world[{{30, 90}, {30, 50}}]:csub(image.gaussian({width = 21, height = 61}))
+    self.world[{{60, 80}, {1, 50}}]:csub(image.gaussian({width = 60, height = 21})[{{}, {11, 60}}])
   end
 end
 
 -- 2 states returned, of type 'real', of dimensionality 1, from 0-1
-function GridWorld:getStateSpec()
-  return {
-    {'real', 1, {0, 1}}, -- x
-    {'real', 1, {0, 1}} -- y
+function GridWorld:getStateSpace()
+  local state = {}
+  state['name'] = 'Box'
+  state['shape'] = {2}
+  state['low'] = {
+    0, -- x
+    0 -- y
   }
+  state['high'] = {
+    1, -- x
+    1 -- y
+  }
+  return state
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 1 and 4
-function GridWorld:getActionSpec()
-  return {'int', 1, {1, 4}}
+function GridWorld:getActionSpace()
+  local action = {}
+  action['name'] = 'Discrete'
+  action['n'] = 4
+  return action
 end
 
 -- Min and max reward
-function GridWorld:getRewardSpec()
+function GridWorld:getRewardSpace()
   return torch.min(self.world), 0
 end
 
 -- Reset position
-function GridWorld:start()
+function GridWorld:_start()
   self.position = {0.2, 0.4}
 
   return self.position
 end
 
 -- Move up, right, down or left
-function GridWorld:step(action)
+function GridWorld:_step(action)
+  action = action + 1 -- scale action
   local terminal = false
 
   -- Move
@@ -63,7 +76,7 @@ function GridWorld:step(action)
   end
 
   -- Look up cost of moving to position
-  local reward = self.world[{{self.position[1]*100+1}, {self.position[2]*100+1}}][1][1]
+  local reward = self.world[{{self.position[1] * 100 + 1}, {self.position[2] * 100 + 1}}][1][1]
 
   -- Check if reached goal
   if self.position[1] == 1 and self.position[2] == 1 then

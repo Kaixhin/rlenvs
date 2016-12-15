@@ -5,6 +5,7 @@ local DynaMaze, super = classic.class('DynaMaze', Env)
 -- Constructor
 function DynaMaze:_init(opts)
   opts = opts or {}
+  super._init(self, opts)
 
   -- Set change: none|blocking|shortcut
   self.change = opts.change or 'none'
@@ -27,25 +28,36 @@ function DynaMaze:_init(opts)
 end
 
 -- 2 states returned, of type 'int', of dimensionality 1, where x is 1-9 and y is 1-6
-function DynaMaze:getStateSpec()
-  return {
-    {'int', 1, {1, 9}}, -- x
-    {'int', 1, {1, 6}} -- y
+function DynaMaze:getStateSpace()
+  local state = {}
+  state['name'] = 'Box'
+  state['shape'] = {2}
+  state['low'] = {
+    1, -- x
+    1 -- y
   }
+  state['high'] = {
+    9, -- x
+    6 -- y
+  }
+  return state
 end
 
 -- 1 action required, of type 'int', of dimensionality 1, between 1 and 4
-function DynaMaze:getActionSpec()
-  return {'int', 1, {1, 4}}
+function DynaMaze:getActionSpace()
+  local action = {}
+  action['name'] = 'Discrete'
+  action['n'] = 4
+  return action
 end
 
 -- Min and max reward
-function DynaMaze:getRewardSpec()
+function DynaMaze:getRewardSpace()
   return 0, 1
 end
 
 -- Reset position
-function DynaMaze:start()
+function DynaMaze:_start()
   if self.change == 'none' then
     self.position = {1, 4}
   else
@@ -56,7 +68,8 @@ function DynaMaze:start()
 end
 
 -- Move up, right, down or left
-function DynaMaze:step(action)
+function DynaMaze:_step(action)
+  action = action + 1 -- scale action
   local reward = 0
   local terminal = false
 

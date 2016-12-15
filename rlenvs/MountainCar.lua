@@ -37,10 +37,10 @@ end
 -- Drives the car
 function MountainCar:step(action)
   -- Calculate height
-  local height = math.sin(3*self.position)
+  local height = math.sin(3 * self.position)
 
   -- Update velocity and position
-  self.velocity = self.velocity + 0.001*action - 0.0025*math.cos(3*self.position)
+  self.velocity = self.velocity + 0.001 * action - 0.0025 * math.cos(3 * self.position)
   self.velocity = math.max(self.velocity, -0.07)
   self.velocity = math.min(self.velocity, 0.07)
   self.position = self.position + self.velocity

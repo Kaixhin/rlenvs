@@ -25,8 +25,8 @@ function Acrobot:getStateSpec()
   return {
     {'real', 1, {-math.pi, math.pi}}, -- Joint 1 angle
     {'real', 1, {-math.pi, math.pi}}, -- Joint 2 angle
-    {'real', 1, {-4*math.pi, 4*math.pi}}, -- Joint 1 angular velocity
-    {'real', 1, {-9*math.pi, 9*math.pi}} -- Joint 2 angular velocity
+    {'real', 1, {-4 * math.pi, 4 * math.pi}}, -- Joint 1 angular velocity
+    {'real', 1, {-9 * math.pi, 9 * math.pi}} -- Joint 2 angular velocity
   }
 end
 
@@ -58,14 +58,12 @@ function Acrobot:step(action)
 
   for t = 1, self.steps do
     -- Calculate motion of system
-    local d1 = self.m1*math.pow(self.lc1, 2) + self.m2*(math.pow(self.l1, 2) + math.pow(self.lc2, 2) + 2*self.l1*self.lc2*math.cos(self.q2)) + self.I1 + self.I2
-    local d2 = self.m2*(math.pow(self.lc2, 2) + self.l1*self.lc2*math.cos(self.q2)) + self.I2
-    local phi2 = self.m2*self.lc2*self.g*math.cos(self.q1 + self.q2 - math.pi/2)
-    local phi1 = -self.m2*self.l1*self.lc2*math.pow(self.q2Dot, 2)*math.sin(self.q2) - 2*self.m2*self.l1*self.lc2*self.q2Dot*self.q1Dot*math.sin(self.q2) +
-                 (self.m1*self.lc1 + self.m2*self.l1)*self.g*math.cos(self.q1 - math.pi/2) + phi2
-    local q2DotDot = (action + d2/d1*phi1 - self.m2*self.l1*self.lc2*math.pow(self.q1Dot, 2)*math.sin(self.q2) - phi2) /
-                     (self.m2*math.pow(self.lc2, 2) + self.I2 - math.pow(d2, 2)/d1)
-    local q1DotDot = -(d2/q2DotDot + phi1)/d1
+    local d1 = self.m1 * math.pow(self.lc1, 2) + self.m2 * (math.pow(self.l1, 2) + math.pow(self.lc2, 2) + 2 * self.l1 * self.lc2 * math.cos(self.q2)) + self.I1 + self.I2
+    local d2 = self.m2 * (math.pow(self.lc2, 2) + self.l1 * self.lc2 * math.cos(self.q2)) + self.I2
+    local phi2 = self.m2 * self.lc2 * self.g * math.cos(self.q1 + self.q2 - math.pi / 2)
+    local phi1 = -self.m2 * self.l1 * self.lc2 * math.pow(self.q2Dot, 2) * math.sin(self.q2) - 2 * self.m2 * self.l1 * self.lc2 * self.q2Dot * self.q1Dot * math.sin(self.q2) + (self.m1 * self.lc1 + self.m2 * self.l1) * self.g * math.cos(self.q1 - math.pi / 2) + phi2
+    local q2DotDot = (action + d2 / d1 * phi1 - self.m2 * self.l1 * self.lc2 * math.pow(self.q1Dot, 2) * math.sin(self.q2) - phi2) / (self.m2 * math.pow(self.lc2, 2) + self.I2 - math.pow(d2, 2) / d1)
+    local q1DotDot = -(d2 / q2DotDot + phi1) / d1
 
     -- Update state using Euler's method
     self.q1Dot = self.q1Dot + self.tau * q1DotDot
@@ -86,13 +84,13 @@ function Acrobot:step(action)
     self.q2 = math.pi - (self.q2 % -math.pi)
   end
   -- Limit velocities
-  self.q1Dot = math.max(self.q1Dot, -4*math.pi)
-  self.q1Dot = math.min(self.q1Dot, 4*math.pi)
-  self.q2Dot = math.max(self.q2Dot, -9*math.pi)
-  self.q2Dot = math.min(self.q2Dot, 9*math.pi)
+  self.q1Dot = math.max(self.q1Dot, -4 * math.pi)
+  self.q1Dot = math.min(self.q1Dot, 4 * math.pi)
+  self.q2Dot = math.max(self.q2Dot, -9 * math.pi)
+  self.q2Dot = math.min(self.q2Dot, 9 * math.pi)
 
   -- Terminate if second joint's height is greater than height of first joint (relative to origin)
-  local h = -self.l1*math.cos(self.q1) - self.l2*math.sin(math.pi/2 - self.q1 - self.q2)
+  local h = -self.l1 * math.cos(self.q1) - self.l2 * math.sin(math.pi / 2 - self.q1 - self.q2)
   if h > self.l1 then
     reward = 0
     terminal = true

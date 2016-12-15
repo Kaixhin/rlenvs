@@ -17,6 +17,7 @@ rlenvs.MultiArmedBandit = require 'rlenvs/MultiArmedBandit'
 rlenvs.RandomWalk = require 'rlenvs/RandomWalk'
 rlenvs.Taxi = require 'rlenvs/Taxi'
 rlenvs.WindyWorld = require 'rlenvs/WindyWorld'
+rlenvs.XOWorld = require 'rlenvs/XOWorld'
 
 -- Remove nil environments
 for k, v in pairs(rlenvs) do

@@ -13,8 +13,8 @@ function GridWorld:_init(opts)
   -- PuddleWorld
   if opts.puddles then
     -- Create 2D Gaussians to subtract from world
-    self.world[{{30, 90}, {30, 50}}]:csub(image.gaussian({width=21, height=61}))
-    self.world[{{60, 80}, {1, 50}}]:csub(image.gaussian({width=60, height=21})[{{}, {11, 60}}])
+    self.world[{{30, 90}, {30, 50}}]:csub(image.gaussian({width = 21, height = 61}))
+    self.world[{{60, 80}, {1, 50}}]:csub(image.gaussian({width = 60, height = 21})[{{}, {11, 60}}])
   end
 end
 
@@ -63,7 +63,7 @@ function GridWorld:step(action)
   end
 
   -- Look up cost of moving to position
-  local reward = self.world[{{self.position[1]*100+1}, {self.position[2]*100+1}}][1][1]
+  local reward = self.world[{{self.position[1] * 100 + 1}, {self.position[2] * 100 + 1}}][1][1]
 
   -- Check if reached goal
   if self.position[1] == 1 and self.position[2] == 1 then

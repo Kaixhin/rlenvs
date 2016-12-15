@@ -26,6 +26,12 @@ Run `th experiment.lua` (or `qlua experiment.lua`) to run a demo of a random age
 ## Installation
 
 ```sh
+luarocks install https://raw.githubusercontent.com/Kaixhin/rlenvs/master/rocks/rlenvs-scm-2.rockspec
+```
+
+The old API can be installed with the `v1` rockspec:
+
+```sh
 luarocks install https://raw.githubusercontent.com/Kaixhin/rlenvs/master/rocks/rlenvs-scm-1.rockspec
 ```
 
